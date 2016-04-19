@@ -78,17 +78,13 @@ void Planeta::Draw()
 		
 		if (hasOrbit)
 		{
-<<<<<<< HEAD
+
 			x = distanceToSun * cos(angle*velocidadeOrbita);
 			y = 0;
 			z = distanceToSun *  sin(angle*velocidadeOrbita);
 			glTranslatef(x, 0, z);
 			angle += 0.1;
-=======
-			
-			glTranslatef(distanceToSun * cos(timeSinceStart * velocidadeOrbita), 0, distanceToSun *  sin(timeSinceStart * -velocidadeOrbita));
-			
->>>>>>> a493b6bb8dc3d8ed9131177bac8d44ad6745742c
+
 		}
 		glRotatef(-20, 0.0, 0.0, 1.0);
 		glRotatef(spin, 0.0, 1.0, 0.0);
