@@ -16,6 +16,9 @@ public:
 	char impathfile[255];
 	bool hasOrbit;
 	float velocidadeOrbita;
+	float x, y, z;
+	GLuint texture;
+	float angle;
 
 };
 

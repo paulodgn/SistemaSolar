@@ -6,7 +6,7 @@
 #include <cmath>
 
 tgaInfo *im;
-GLuint texture;
+
 GLUquadric *mysolid;
 GLfloat spin = 0.05;
 
@@ -19,6 +19,10 @@ void Planeta::CreatePlaneta(int radius, bool hasOrbit, float velocidadeOrbita, f
 		this->hasOrbit = hasOrbit;
 		this->velocidadeOrbita = velocidadeOrbita;
 		strcpy_s(impathfile, imagePath);
+		this->x = distanceToSun;
+		this->y = 0;
+		this->z = 0;
+		this->angle = 0;
 		load_tga_image();
 	}
 
@@ -64,30 +68,26 @@ void Planeta::Draw()
 	{
 		//load da textura
 	
-				
 		glEnable(GL_TEXTURE_2D);
-				
 		// Select texture
 		glBindTexture(GL_TEXTURE_2D, texture);
-
-
 		// Desenha esfera
 		glPushMatrix();
 		if (hasOrbit)
 		{
-			
-			glTranslatef(distanceToSun * cos(spin*velocidadeOrbita), 0, distanceToSun *  sin(spin*velocidadeOrbita));
-			
+			x = distanceToSun * cos(angle*velocidadeOrbita);
+			y = 0;
+			z = distanceToSun *  sin(angle*velocidadeOrbita);
+			glTranslatef(x, 0, z);
+			angle += 0.1;
 		}
-		
-		
 		glRotatef(-20, 0.0, 0.0, 1.0);
 		glRotatef(spin, 0.0, 1.0, 0.0);
 		glRotatef(-65, 1.0, 0.0, 0.0);
 		gluSphere(mysolid, radius, 100, 100);
 		glPopMatrix();
 		
-		
+		DrawOrbit(x,y,z,distanceToSun);
 
 		glDisable(GL_TEXTURE_2D);
 
@@ -97,10 +97,11 @@ void Planeta::Update()
 {
 	//rotacao planeta
 	spin = spin + 0.1;
-	if (spin > 360.0) spin = spin - 360.0;
+	if (spin > 360.0)
+	{
+		spin = spin - 360.0;
+	}
 
-	
-	
 }
 
 void Planeta::DrawOrbit(float x, float y, float z, GLint radius)

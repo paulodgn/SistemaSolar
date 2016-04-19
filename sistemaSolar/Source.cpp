@@ -49,7 +49,7 @@ void reshape(GLsizei w, GLsizei h)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	//glTranslatef(0.0, 0.0, -10.0);
+	glTranslatef(0.0, 0.0, -10.0);
 }
 
 
@@ -58,8 +58,9 @@ void reshape(GLsizei w, GLsizei h)
 void CreatePlanetas()
 {
 	sol.CreatePlaneta(2,false,0, 0, "images/sun.tga");
-	terra.CreatePlaneta(1,true,0.2, 7, "images/earth.tga");
-	marte.CreatePlaneta(1,true,0.3, 10, "images/mars.tga");
+	terra.CreatePlaneta(1, true, 0.05, 7, "images/earth.tga");
+	marte.CreatePlaneta(1,true,0.08, 10, "images/mars.tga");
+	
 }
 
 void DrawPlanetas()
@@ -82,7 +83,7 @@ void display(void)
 {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	glLoadIdentity();
 	
 	gluLookAt(0, 50, 20, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
