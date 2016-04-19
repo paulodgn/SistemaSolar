@@ -29,3 +29,7 @@
 
 *TemporaryGeneratedFile*
 *.opensdf
+*.sdf
+*.tlog
+*.idb
+*.lastbuildstate
