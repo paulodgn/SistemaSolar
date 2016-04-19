@@ -19,7 +19,7 @@ void Planeta::CreatePlaneta(int radius, bool hasOrbit, float velocidadeOrbita, f
 		this->hasOrbit = hasOrbit;
 		this->velocidadeOrbita = velocidadeOrbita;
 		strcpy_s(impathfile, imagePath);
-
+		load_tga_image();
 	}
 
 void Planeta::load_tga_image()
@@ -63,7 +63,7 @@ void Planeta::load_tga_image()
 void Planeta::Draw()
 	{
 		//load da textura
-		load_tga_image();
+	
 				
 		glEnable(GL_TEXTURE_2D);
 				
