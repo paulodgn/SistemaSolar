@@ -89,8 +89,8 @@ void display(void)
 	
 	glLoadIdentity();
 	
-	gluLookAt(0, 50, 20 - freeCamera.forward, freeCamera.x, freeCamera.y, freeCamera.z+10, 0.0, 1.0, 0.0);
-	
+	//gluLookAt(0, 50, 20 - freeCamera.z, freeCamera.x, freeCamera.y, freeCamera.z, 0.0, 1.0, 0.0);
+	glTranslatef(freeCamera.x, freeCamera.y, freeCamera.z);
 
 	DrawPlanetas();
 	UpdatePlanetas();

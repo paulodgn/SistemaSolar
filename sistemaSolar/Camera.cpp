@@ -21,23 +21,23 @@ void Camera::Input(unsigned char key)
 		if (key == 'A')
 		{
 			printf("tecla a \n");
-			
+			this->x += 0.1;
 
 		}
 		if (key == 'S')
 		{
 			printf("tecla s\n");
-			this->forward -= 0.1;
+			this->z -= 0.1;
 		}
 		if (key == 'D')
 		{
 			printf("tecla d\n");
-			
+			this->x -= 0.1;
 		}
 		if (key == 'W')
 		{
 			printf("tecla w\n");
-			this->forward += 0.1;
+			this->z += 0.1;
 		}
 	
 }
