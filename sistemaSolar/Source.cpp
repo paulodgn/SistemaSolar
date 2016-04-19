@@ -58,9 +58,14 @@ void reshape(GLsizei w, GLsizei h)
 void CreatePlanetas()
 {
 	sol.CreatePlaneta(2,false,0, 0, "images/sun.tga");
+<<<<<<< HEAD
 	terra.CreatePlaneta(1, true, 0.05, 7, "images/earth.tga");
 	marte.CreatePlaneta(1,true,0.08, 10, "images/mars.tga");
 	
+=======
+	terra.CreatePlaneta(1,true,0.005, 7, "images/earth.tga");
+	marte.CreatePlaneta(1,true,0.0003, 10, "images/mars.tga");
+>>>>>>> a493b6bb8dc3d8ed9131177bac8d44ad6745742c
 }
 
 void DrawPlanetas()
