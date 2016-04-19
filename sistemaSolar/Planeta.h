@@ -1,14 +1,21 @@
 class Planeta
 {
 public:
-	void CreatePlaneta(int radius, float distanceToSun, char imagePath[255]);
+	void CreatePlaneta(int radius, bool rotate, float velocidadeOrbita, float distanceToSun, char imagePath[255]);
 	
-	void DrawPlaneta();
+	void Draw();
+	void Update();
 	void load_tga_image();
+	void getX();
+	void getY();
+	void getZ();
+	void DrawOrbit(float x, float y, float z, GLint radius);
 
 	int radius;
 	float distanceToSun;
 	char impathfile[255];
+	bool hasOrbit;
+	float velocidadeOrbita;
 
 };
 

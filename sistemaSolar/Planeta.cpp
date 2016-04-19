@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "Planeta.h"
 #include "tga.h"
+#include <cmath>
 
 tgaInfo *im;
 GLuint texture;
@@ -11,10 +12,12 @@ GLfloat spin = 0.05;
 
 
 
-void Planeta::CreatePlaneta(int radius, float distanceToSun, char imagePath[255])
+void Planeta::CreatePlaneta(int radius, bool hasOrbit, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
 		this->radius = radius;
 		this->distanceToSun = distanceToSun;
+		this->hasOrbit = hasOrbit;
+		this->velocidadeOrbita = velocidadeOrbita;
 		strcpy_s(impathfile, imagePath);
 
 	}
@@ -57,44 +60,68 @@ void Planeta::load_tga_image()
 		tgaDestroy(im);
 	}
 
-void Planeta::DrawPlaneta()
+void Planeta::Draw()
 	{
+		//load da textura
 		load_tga_image();
-
-		glClearColor(0.0, 0.0, 0.0, 0.0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		glLoadIdentity();
-
-		gluLookAt(1.0, 1.0, -20.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
+				
 		glEnable(GL_TEXTURE_2D);
-
-		glColor4f(1.0, 1.0, 1.0, 1.0);
-
+				
 		// Select texture
 		glBindTexture(GL_TEXTURE_2D, texture);
 
 
-		// Draw sphere
+		// Desenha esfera
 		glPushMatrix();
-		glTranslatef(distanceToSun, 0, 0);
-		glRotatef(spin, 0.0, 0.0, 1.0);
+		if (hasOrbit)
+		{
+			
+			glTranslatef(distanceToSun * cos(spin*velocidadeOrbita), 0, distanceToSun *  sin(spin*velocidadeOrbita));
+			
+		}
+		
+		
+		glRotatef(-20, 0.0, 0.0, 1.0);
 		glRotatef(spin, 0.0, 1.0, 0.0);
+		glRotatef(-65, 1.0, 0.0, 0.0);
 		gluSphere(mysolid, radius, 100, 100);
 		glPopMatrix();
-
-		spin = spin + 0.1;
-		if (spin > 360.0) spin = spin - 360.0;
+		
+		
 
 		glDisable(GL_TEXTURE_2D);
 
-		glutSwapBuffers();
-
-		glFlush();
-
-
 	}
+
+void Planeta::Update()
+{
+	//rotacao planeta
+	spin = spin + 0.1;
+	if (spin > 360.0) spin = spin - 360.0;
+
+	
+	
+}
+
+void Planeta::DrawOrbit(float x, float y, float z, GLint radius)
+{
+	glBegin(GL_LINE_LOOP);
+
+	for (float i = 0; i<(3.14 * 2); i += 3.14 / 180)
+
+	{
+		x = sin(i)*radius;
+		z = cos(i)*radius;
+		glVertex3f(x, 0, z);
+	}
+
+	glEnd();
+}
+
+void Planeta::getX()
+{
+	
+}
 
 	
 
