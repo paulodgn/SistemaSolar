@@ -7,7 +7,7 @@
 #include <windows.h>
 #include "tga.h"
 #include "Planeta.h"
-
+#include "Camera.h"
 
 
 // Protótipos de funções
@@ -24,7 +24,7 @@ void load_tga_image(void);
 //GLfloat spin = 0.05;
 float solX=0, solY=0, solZ=0;
 Planeta sol, terra, marte;
-
+Camera freeCamera;
 
 void init(void)
 {
@@ -33,6 +33,8 @@ void init(void)
 
 	// Activa o teste de profundidade
 	glEnable(GL_DEPTH_TEST);
+
+	freeCamera.InitCamera();
 }
 
 
@@ -87,16 +89,21 @@ void display(void)
 	
 	glLoadIdentity();
 	
-	gluLookAt(0, 50, 20, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(0, 50, 20 - freeCamera.forward, freeCamera.x, freeCamera.y, freeCamera.z+10, 0.0, 1.0, 0.0);
 	
 
 	DrawPlanetas();
 	UpdatePlanetas();
-
+	
 
 	glutSwapBuffers();
 
 	glFlush();
+}
+
+void UpdateCamera(unsigned char key, int x, int y)
+{
+	freeCamera.Input(key);
 }
 
 int main(int argc, char** argv)
@@ -125,6 +132,7 @@ int main(int argc, char** argv)
 
 
 	// Registar funções de callback
+	glutKeyboardFunc(UpdateCamera);
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(display);//display
