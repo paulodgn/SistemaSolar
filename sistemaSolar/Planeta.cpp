@@ -73,10 +73,13 @@ void Planeta::Draw()
 
 		// Desenha esfera
 		glPushMatrix();
+
+		int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
+		
 		if (hasOrbit)
 		{
 			
-			glTranslatef(distanceToSun * cos(spin*velocidadeOrbita), 0, distanceToSun *  sin(spin*velocidadeOrbita));
+			glTranslatef(distanceToSun * cos(timeSinceStart * velocidadeOrbita), 0, distanceToSun *  sin(timeSinceStart * -velocidadeOrbita));
 			
 		}
 		
