@@ -28,7 +28,7 @@ void Planeta::CreatePlaneta(double radius, bool hasOrbit,bool hasMoon, float vel
 		this->z = 0;
 		this->angle = 0;
 		this->hasMoon = hasMoon;
-		this->orbitSpeed = 100;
+		this->orbitSpeedInc = 1.5;
 		load_tga_image();
 		
 		if (hasMoon)
@@ -96,11 +96,11 @@ void Planeta::Draw()
 		if (hasOrbit)
 		{
 
-			x = distanceToSun * cos(angle*velocidadeOrbita);
+			x = distanceToSun * cos(angle);
 			y = 0;
-			z = distanceToSun *  sin(angle*velocidadeOrbita);
+			z = distanceToSun * sin(angle);
 			glTranslatef(x, 0, z);
-			angle += 0.1;
+			angle += 0.1 * velocidadeOrbita ;
 
 		}
 		
@@ -127,11 +127,11 @@ void Planeta::Input(unsigned char key)
 	key = toupper(key);
 	if (key == '+')
 	{
-		velocidadeOrbita += 0.001;
+		velocidadeOrbita += 0.01;
 	}
 	if (key == '-')
 	{
-		velocidadeOrbita -= 0.001;
+		velocidadeOrbita -= 0.01;
 	}
 }
 

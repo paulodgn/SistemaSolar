@@ -22,7 +22,7 @@ private:
 	float x, y, z;
 	GLuint texture;
 	float angle;
-	float orbitSpeed;
+	float orbitSpeedInc;
 	bool hasMoon;
 
 };
