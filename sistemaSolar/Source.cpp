@@ -27,7 +27,7 @@ void load_tga_image(void);
 //GLfloat spin = 0.05;
 int width, height;
 float solX=0, solY=0, solZ=0;
-Planeta sol, terra, marte;
+Planeta sol,mercurio,venus, terra, marte, jupiter, saturno, uranus, neptuno;
 std::list<Planeta> listaPlanetas;
 Camera freeCamera;
 
@@ -134,10 +134,17 @@ void reshape(GLsizei w, GLsizei h)
 
 void CreatePlanetas()
 {
+	//sol, mercurio, venus, terra, marte, jupiter, saturno, uranus, neptuno;
 	sol.CreatePlaneta(2,false,false,0, 0, "images/sun.tga");
-	terra.CreatePlaneta(1, true,true, 0.05, 7, "images/earth.tga");
-	
-	marte.CreatePlaneta(1,true,false,0.08, 10, "images/mars.tga");
+	mercurio.CreatePlaneta(0.5, true, false, 0.03, 5, "images/mercury.tga");
+	venus.CreatePlaneta(0.7, true, false, 0.06, 7, "images/venus.tga");
+	terra.CreatePlaneta(1, true,true, 0.05, 10, "images/earth.tga");
+
+	marte.CreatePlaneta(1,true,false,0.08, 15, "images/mars.tga");
+	jupiter.CreatePlaneta(3, true, false, 0.04,20, "images/jupiter.tga");
+	saturno.CreatePlaneta(2.8, true, false, 0.09,29, "images/saturn.tga");
+	uranus.CreatePlaneta(1.5, true, false, 0.07, 35, "images/uranus.tga");
+	neptuno.CreatePlaneta(1.5, true, false, 0.03, 42, "images/neptune.tga");
 
 }
 
@@ -145,17 +152,29 @@ void DrawPlanetas()
 {
 	
 	sol.Draw();
+	mercurio.Draw();
+	venus.Draw();
 	terra.Draw();
-	
+
 	marte.Draw();
+	jupiter.Draw();
+	saturno.Draw();
+	uranus.Draw();
+	neptuno.Draw();
 }
 
 void UpdatePlanetas()
 {
 	sol.Update();
+	mercurio.Update();
+	venus.Update();
 	terra.Update();
-	
+
 	marte.Update();
+	jupiter.Update();
+	saturno.Update();
+	uranus.Update();
+	neptuno.Update();
 }
 
 
@@ -188,8 +207,16 @@ void display(void)
 void Input(unsigned char key, int x, int y)
 {
 	freeCamera.Input(key);
+	sol.Input(key);
+	mercurio.Input(key);
+	venus.Input(key);
 	terra.Input(key);
+
 	marte.Input(key);
+	jupiter.Input(key);
+	saturno.Input(key);
+	uranus.Input(key);
+	neptuno.Input(key);
 	
 }
 
