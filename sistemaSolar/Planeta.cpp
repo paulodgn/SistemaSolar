@@ -13,6 +13,8 @@ GLUquadric *mysolid;
 GLfloat spin = 0.05;
 
 Lua lua;
+unsigned char key;
+
 
 void Planeta::CreatePlaneta(double radius, bool hasOrbit,bool hasMoon, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
@@ -26,6 +28,7 @@ void Planeta::CreatePlaneta(double radius, bool hasOrbit,bool hasMoon, float vel
 		this->z = 0;
 		this->angle = 0;
 		this->hasMoon = hasMoon;
+		this->orbitSpeed = 100;
 		load_tga_image();
 		
 		if (hasMoon)
@@ -87,7 +90,7 @@ void Planeta::Draw()
 		glBindTexture(GL_TEXTURE_2D, texture);
 		// Desenha esfera
 		glPushMatrix();
-
+		
 		int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
 		
 		if (hasOrbit)
@@ -119,15 +122,29 @@ void Planeta::Draw()
 		
 	}
 
+void Planeta::Input(unsigned char key)
+{
+	key = toupper(key);
+	if (key == '+')
+	{
+		velocidadeOrbita += 0.001;
+	}
+	if (key == '-')
+	{
+		velocidadeOrbita -= 0.001;
+	}
+}
+
 void Planeta::Update()
 {
+	
 	//rotacao planeta
 	spin = spin + 0.1;
 	if (spin > 360.0)
 	{
 		spin = spin - 360.0;
 	}
-
+	
 }
 
 void Planeta::DrawOrbit(float x, float y, float z, GLint radius)

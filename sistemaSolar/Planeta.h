@@ -11,6 +11,7 @@ public:
 	float getZ();
 	void DrawOrbit(float x, float y, float z, GLint radius);
 	void AddMoon();
+	void Input(unsigned char key);
 
 private:
 	double radius;
@@ -21,7 +22,7 @@ private:
 	float x, y, z;
 	GLuint texture;
 	float angle;
-
+	float orbitSpeed;
 	bool hasMoon;
 
 };

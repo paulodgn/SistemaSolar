@@ -23,7 +23,7 @@ void Camera::InitCamera()
 	this->distanceToSun = 20;
 	this->angle = 0;
 	this->velocidadeOrbita = 0.1;
-	camMode = orbit;
+	camMode = freeCam;
 }
 
 void Camera::Input(unsigned char key)
@@ -91,7 +91,7 @@ void Camera::Update()
 	if (camMode == orbit)
 	{
 		x = distanceToSun * cos(angle*velocidadeOrbita);
-		y = 0;
+		//y = 0;
 		z = distanceToSun * sin(angle*velocidadeOrbita);
 		
 		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);

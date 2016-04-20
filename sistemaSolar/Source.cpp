@@ -10,7 +10,7 @@
 #include "Planeta.h"
 #include "Lua.h"
 #include "Camera.h"
-
+#include <list>
 
 
 // Protótipos de funções
@@ -28,7 +28,7 @@ void load_tga_image(void);
 int width, height;
 float solX=0, solY=0, solZ=0;
 Planeta sol, terra, marte;
-
+std::list<Planeta> listaPlanetas;
 Camera freeCamera;
 
 void init(void)
@@ -132,14 +132,12 @@ void reshape(GLsizei w, GLsizei h)
 
 
 
-
 void CreatePlanetas()
 {
 	sol.CreatePlaneta(2,false,false,0, 0, "images/sun.tga");
 	terra.CreatePlaneta(1, true,true, 0.05, 7, "images/earth.tga");
 	
 	marte.CreatePlaneta(1,true,false,0.08, 10, "images/mars.tga");
-	
 
 }
 
@@ -187,9 +185,12 @@ void display(void)
 	glFlush();
 }
 
-void UpdateCamera(unsigned char key, int x, int y)
+void Input(unsigned char key, int x, int y)
 {
 	freeCamera.Input(key);
+	terra.Input(key);
+	marte.Input(key);
+	
 }
 
 
@@ -221,9 +222,11 @@ int main(int argc, char** argv)
 	
 	
 
-
+	
 	// Registar funções de callback
-	glutKeyboardFunc(UpdateCamera);
+	glutKeyboardFunc(Input);
+	//glutKeyboardFunc(UpdateOrbitaSpeed);
+	
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(display);//display
