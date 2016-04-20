@@ -8,7 +8,7 @@ public:
 
 	float  x, y, z;
 	float  strafe, forward;
-	
+	float speed;
 
 private:
 

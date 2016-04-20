@@ -1,17 +1,19 @@
 class Planeta
 {
 public:
-	void CreatePlaneta(int radius, bool rotate, float velocidadeOrbita, float distanceToSun, char imagePath[255]);
+	void CreatePlaneta(double radius, bool rotate, bool hasMoon, float velocidadeOrbita, float distanceToSun, char imagePath[255]);
 	
 	void Draw();
 	void Update();
 	void load_tga_image();
-	void getX();
-	void getY();
-	void getZ();
+	float getX();
+	float getY();
+	float getZ();
 	void DrawOrbit(float x, float y, float z, GLint radius);
+	void AddMoon();
 
-	int radius;
+private:
+	double radius;
 	float distanceToSun;
 	char impathfile[255];
 	bool hasOrbit;
@@ -19,6 +21,8 @@ public:
 	float x, y, z;
 	GLuint texture;
 	float angle;
+
+	bool hasMoon;
 
 };
 

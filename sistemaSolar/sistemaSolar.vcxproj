@@ -80,12 +80,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Lua.cpp" />
     <ClCompile Include="Planeta.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="tga.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Lua.h" />
     <ClInclude Include="Planeta.h" />
     <ClInclude Include="tga.h" />
   </ItemGroup>

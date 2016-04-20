@@ -4,15 +4,17 @@
 #include "Planeta.h"
 #include "tga.h"
 #include <cmath>
+#include "Lua.h"
+
 
 tgaInfo *im;
 
 GLUquadric *mysolid;
 GLfloat spin = 0.05;
 
+Lua lua;
 
-
-void Planeta::CreatePlaneta(int radius, bool hasOrbit, float velocidadeOrbita, float distanceToSun, char imagePath[255])
+void Planeta::CreatePlaneta(double radius, bool hasOrbit,bool hasMoon, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
 		this->radius = radius;
 		this->distanceToSun = distanceToSun;
@@ -23,7 +25,12 @@ void Planeta::CreatePlaneta(int radius, bool hasOrbit, float velocidadeOrbita, f
 		this->y = 0;
 		this->z = 0;
 		this->angle = 0;
+		this->hasMoon = hasMoon;
 		load_tga_image();
+		
+		if (hasMoon)
+			AddMoon();
+		
 	}
 
 void Planeta::load_tga_image()
@@ -33,7 +40,7 @@ void Planeta::load_tga_image()
 		//strcpy(impathfile, imagePath);
 		// Carrega a imagem de textura
 		im = tgaLoad(impathfile);
-
+		
 		//printf("IMAGE INFO: %s\nstatus: %d\ntype: %d\npixelDepth: %d\nsize%d x %d\n", impathfile, im->status, im->type, im->pixelDepth, im->width, im->height);
 
 		// allocate one texture name
@@ -64,8 +71,15 @@ void Planeta::load_tga_image()
 		tgaDestroy(im);
 	}
 
+void Planeta::AddMoon()
+{
+
+	lua.CreateLua(0.2, true, 0.2, 1.5, "images/moon.tga");
+}
+
 void Planeta::Draw()
 	{
+	
 		//load da textura
 	
 		glEnable(GL_TEXTURE_2D);
@@ -86,16 +100,23 @@ void Planeta::Draw()
 			angle += 0.1;
 
 		}
+		
 		glRotatef(-20, 0.0, 0.0, 1.0);
 		glRotatef(spin, 0.0, 1.0, 0.0);
 		glRotatef(-65, 1.0, 0.0, 0.0);
 		gluSphere(mysolid, radius, 100, 100);
-		glPopMatrix();
 		
+		glPopMatrix();
 		DrawOrbit(x,y,z,distanceToSun);
-
+		if (hasMoon)
+		{
+			lua.Draw(this->x,this->y, this->z);
+			
+			lua.Update();
+		}
+		
 		glDisable(GL_TEXTURE_2D);
-
+		
 	}
 
 void Planeta::Update()
@@ -124,9 +145,17 @@ void Planeta::DrawOrbit(float x, float y, float z, GLint radius)
 	glEnd();
 }
 
-void Planeta::getX()
+float Planeta::getX()
 {
-	
+	return x;
+}
+float Planeta::getY()
+{
+	return y;
+}
+float Planeta::getZ()
+{
+	return z;
 }
 
 	
