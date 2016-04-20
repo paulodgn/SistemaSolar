@@ -42,7 +42,81 @@ void init(void)
 	freeCamera.InitCamera();
 }
 
+void initLights(void)
+{
+	// Define a luz ambiente global
+	GLfloat global_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	// Define a luz light0. Existem 8 fontes de luz no total.
+	GLfloat light0_ambient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat light0_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+	GLfloat light0_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	// Define a luz light1. Existem 8 fontes de luz no total.
+	GLfloat light1_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	GLfloat light1_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat light1_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat spot_angle = 45.0f;
+	GLfloat spot_exp = 12.0f; // Maior valor = maior concentração de luz no centro
 
+	// Fonte de luz ambiente
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+
+	// Fonte de luz posicional
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.05);
+
+	// Fonte de luz cónica
+	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spot_angle);
+	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, spot_exp);
+
+	// Activa a utilização de iluminação
+	glEnable(GL_LIGHTING);
+	// Activa a fonte de luz light0
+	glEnable(GL_LIGHT0);
+	// Activa a fonte de luz light1
+	glEnable(GL_LIGHT1);
+}
+
+void applylights(void)
+{
+	// Define a posição de light0
+	GLfloat light0_position[] = { 0.0f, 3.0f, 0.0f, 1.0f };
+	// Define a posição de direcção de light1
+	GLfloat spot_position[] = { 0.0f, 3.0f, -10.0f, 1.0f };
+	GLfloat spot_direction[] = { 0.0f, -1.0f, 0.0f };
+
+	// Aplica a light0
+	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+
+	// Aplica a light1
+	glLightfv(GL_LIGHT1, GL_POSITION, spot_position);
+	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
+
+	glDisable(GL_LIGHTING);
+
+	// Desenha uma esfera que sinaliza a posição da light0
+	glPushMatrix();
+	glColor3f(1.0, 1.0, 1.0);
+	glTranslatef(0.0f, 3.0f, 0.0f);
+	glutSolidSphere(0.1, 20, 20);
+	glPopMatrix();
+
+	// Desenha uma esfera que sinaliza a posição da light1
+	glPushMatrix();
+	glColor3f(1.0, 1.0, 1.0);
+	glTranslatef(0.0f, 3.0f, -10.0f);
+	glutSolidSphere(0.1, 20, 20);
+	glPopMatrix();
+
+	glEnable(GL_LIGHTING);
+}
 void reshape(GLsizei w, GLsizei h)
 {
 	glViewport(0, 0, w, h);
@@ -99,7 +173,7 @@ void display(void)
 	
 	//gluLookAt(0, 50, 20 - freeCamera.z, freeCamera.x, freeCamera.y, freeCamera.z, 0.0, 1.0, 0.0);
 	glTranslatef(freeCamera.x, freeCamera.y, freeCamera.z);
-
+	applylights();
 	
 	//desenha e faz update aos planetas
 	DrawPlanetas();
@@ -141,6 +215,7 @@ int main(int argc, char** argv)
 	
 	// Inicializações
 	init();
+	initLights();
 	CreatePlanetas();
 	//load_tga_image();
 	
