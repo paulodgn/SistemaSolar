@@ -172,7 +172,7 @@ void display(void)
 	glLoadIdentity();
 	
 	//gluLookAt(0, 50, 20 - freeCamera.z, freeCamera.x, freeCamera.y, freeCamera.z, 0.0, 1.0, 0.0);
-	glTranslatef(freeCamera.x, freeCamera.y, freeCamera.z);
+	freeCamera.Update();
 	applylights();
 	
 	//desenha e faz update aos planetas

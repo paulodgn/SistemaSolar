@@ -9,6 +9,9 @@ public:
 	float  x, y, z;
 	float  strafe, forward;
 	float speed;
+	float angle;
+	float distanceToSun;
+	float velocidadeOrbita;
 
 private:
 

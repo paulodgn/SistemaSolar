@@ -2,6 +2,16 @@
 #include <gl/glut.h>
 #include <stdio.h>
 #include <windows.h>
+#include <math.h>
+
+enum cameraMode
+{
+	freeCam,
+	orbit
+
+};
+
+cameraMode camMode;
 
 void Camera::InitCamera()
 {
@@ -10,6 +20,10 @@ void Camera::InitCamera()
 	this->z = -20;
 	this->forward = 0;
 	this->speed = 2;
+	this->distanceToSun = 20;
+	this->angle = 0;
+	this->velocidadeOrbita = 0.1;
+	camMode = orbit;
 }
 
 void Camera::Input(unsigned char key)
@@ -50,6 +64,16 @@ void Camera::Input(unsigned char key)
 			printf("tecla q\n");
 			this->y -= 0.05 * speed;
 		}
+
+		if (key == 'F')
+		{
+			camMode = freeCam;
+		}
+		if (key == 'O')
+		{
+			camMode = orbit;
+		}
+		
 	
 }
 
@@ -60,6 +84,20 @@ void Camera::Move()
 
 void Camera::Update()
 {
-
+	if (camMode == freeCam)
+	{
+		glTranslatef(x, y, z);
+	}
+	if (camMode == orbit)
+	{
+		x = distanceToSun * cos(angle*velocidadeOrbita);
+		y = 0;
+		z = distanceToSun * sin(angle*velocidadeOrbita);
+		
+		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
+		
+		angle += 0.1;
+	}
+	
 }
 
