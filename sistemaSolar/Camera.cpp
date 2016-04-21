@@ -11,7 +11,7 @@ enum cameraMode
 
 };
 
-float direcaoX=0, direcaoY=0,direcaoZ = -20;
+float direcaoX=0, direcaoY=0,direcaoZ = 0;
 cameraMode camMode;
 
 void Camera::InitCamera()
@@ -25,7 +25,7 @@ void Camera::InitCamera()
 	this->angle = 0;
 	this->velocidadeOrbita = 0.1;
 	this->camAngle = 0;
-	camMode = freeCam;
+	camMode = orbit;
 	
 }
 
@@ -115,7 +115,7 @@ void Camera::Update()
 		
 		direcaoZ = -cos(camAngle);
 		
-		gluLookAt(x,y,z, x + direcaoX, direcaoY, z + direcaoZ, 0.0f, 1.0f, 0.0f);
+		gluLookAt(x,y,z, x + direcaoX, y + direcaoY, z + direcaoZ, 0.0f, 1.0f, 0.0f);
 		
 		
 	}
