@@ -162,11 +162,13 @@ void Planeta::Input(unsigned char key)
 	if (key=='1')
 	{
 		visible = true;
+		lua.visible = true;
 		
 	}
 	if (key == '2')
 	{
 		visible = false;
+		lua.visible = false;
 	}
 
 	
