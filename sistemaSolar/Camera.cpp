@@ -11,7 +11,7 @@ enum cameraMode
 
 };
 
-float direcaoX=0, direcaoY=0,direcaoZ = -1;
+float direcaoX=0, direcaoY=0,direcaoZ = -20;
 cameraMode camMode;
 
 void Camera::InitCamera()
@@ -20,12 +20,13 @@ void Camera::InitCamera()
 	this->y = 0;
 	this->z = -20;
 	this->forward = 0;
-	this->speed = 2;
+	this->speed = 1;
 	this->distanceToSun = 20;
 	this->angle = 0;
 	this->velocidadeOrbita = 0.1;
 	this->camAngle = 0;
 	camMode = freeCam;
+	
 }
 
 void Camera::Input(unsigned char key)
@@ -79,13 +80,24 @@ void Camera::Input(unsigned char key)
 		if (key == 'D')
 		{
 			camAngle += 0.01;
-					
+				
 		}
 		if (key == 'A')
 		{
 			camAngle -= 0.01;
 
 		}
+		if (key == 'T')
+		{
+			direcaoY += 0.1;
+
+		}
+		if (key == 'G')
+		{
+			direcaoY -= 0.1;
+
+		}
+		
 		
 	
 }
@@ -100,15 +112,17 @@ void Camera::Update()
 	if (camMode == freeCam)
 	{
 		direcaoX = sin(camAngle);
+		
 		direcaoZ = -cos(camAngle);
 		
-		gluLookAt(x, y, z,x + direcaoX , y, z + direcaoZ ,0.0f, 1.0f, 0.0f);
+		gluLookAt(x,y,z, x + direcaoX, direcaoY, z + direcaoZ, 0.0f, 1.0f, 0.0f);
+		
 		
 	}
 	if (camMode == orbit)
 	{
 		x = distanceToSun * cos(angle*velocidadeOrbita);
-		//y = 0;
+		
 		z = distanceToSun * sin(angle*velocidadeOrbita);
 		
 		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
