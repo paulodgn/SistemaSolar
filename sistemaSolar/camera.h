@@ -12,6 +12,7 @@ public:
 	float angle;
 	float distanceToSun;
 	float velocidadeOrbita;
+	float camAngle;
 
 private:
 
