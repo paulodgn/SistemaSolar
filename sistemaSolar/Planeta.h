@@ -1,7 +1,7 @@
 class Planeta
 {
 public:
-	void CreatePlaneta(double radius, bool rotate, bool hasMoon, float velocidadeOrbita, float distanceToSun, char imagePath[255]);
+	void CreatePlaneta(double radius, bool rotate, float numberOfMoons, float velocidadeOrbita, float distanceToSun, char imagePath[255]);
 	
 	void Draw();
 	void Update();
@@ -23,7 +23,7 @@ private:
 	GLuint texture;
 	float angle;
 	float orbitSpeedInc;
-	bool hasMoon;
+	float numberOfMoons;
 
 };
 

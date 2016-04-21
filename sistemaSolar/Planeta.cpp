@@ -14,9 +14,10 @@ GLfloat spin = 0.05;
 
 Lua lua;
 unsigned char key;
+bool visible = false;
 
 
-void Planeta::CreatePlaneta(double radius, bool hasOrbit,bool hasMoon, float velocidadeOrbita, float distanceToSun, char imagePath[255])
+void Planeta::CreatePlaneta(double radius, bool hasOrbit,float numberOfMoons, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
 		this->radius = radius;
 		this->distanceToSun = distanceToSun;
@@ -27,11 +28,11 @@ void Planeta::CreatePlaneta(double radius, bool hasOrbit,bool hasMoon, float vel
 		this->y = 0;
 		this->z = 0;
 		this->angle = 0;
-		this->hasMoon = hasMoon;
+		this->numberOfMoons = numberOfMoons;
 		this->orbitSpeedInc = 1.5;
 		load_tga_image();
 		
-		if (hasMoon)
+		if (numberOfMoons>0)
 			AddMoon();
 		
 	}
@@ -76,8 +77,15 @@ void Planeta::load_tga_image()
 
 void Planeta::AddMoon()
 {
+	for (float i = 0; i <= numberOfMoons; i++)
+	{
+		lua.CreateLua(0.2, true, 0.2, 1.95, "images/moon.tga");
 
-	lua.CreateLua(0.2, true, 0.2, 1.95, "images/moon.tga");
+		lua.CreateLua(0.2, true, 0.2, 3, "images/moon.tga");
+
+	}
+
+	
 }
 
 void Planeta::Draw()
@@ -116,7 +124,16 @@ void Planeta::Draw()
 		
 		glPopMatrix();
 		DrawOrbit(x,y,z,distanceToSun+radius/2);
-		if (hasMoon)
+
+		for (float i = 0; i < numberOfMoons; i++)
+		{
+			lua.Draw(this->x, this->y, this->z);
+			lua.Update();
+			glTranslatef(this->x, this->y, this->z);
+			lua.DrawOrbit(this->x, this->y, this->z, distanceToSun-10);
+
+		}
+		/*if (numberOfMoons>0)
 		{
 			
 			lua.Draw(this->x,this->y, this->z);
@@ -126,7 +143,7 @@ void Planeta::Draw()
 			
 			
 		}
-		
+		*/
 		glDisable(GL_TEXTURE_2D);
 		
 	}
@@ -142,6 +159,17 @@ void Planeta::Input(unsigned char key)
 	{
 		velocidadeOrbita -= 0.01;
 	}
+	if (key=='1')
+	{
+		visible = true;
+		
+	}
+	if (key == '2')
+	{
+		visible = false;
+	}
+
+	
 }
 
 void Planeta::Update()
@@ -158,18 +186,23 @@ void Planeta::Update()
 
 void Planeta::DrawOrbit(float x, float y, float z, GLint radius)
 {
-	glBegin(GL_LINE_LOOP);
-
-	for (float i = 0; i<(3.14 * 2); i += 3.14 / 180)
-
+	if (visible)
 	{
-		x = sin(i)*radius;
-		z = cos(i)*radius;
-		glVertex3f(x, 0, z);
-	}
+		glBegin(GL_LINE_LOOP);
 
+		for (float i = 0; i<(3.14 * 2); i += 3.14 / 180)
+
+		{
+			x = sin(i)*radius;
+			z = cos(i)*radius;
+			glVertex3f(x, 0, z);
+		}
+
+
+		glEnd();
+
+	}
 	
-	glEnd();
 }
 
 float Planeta::getX()

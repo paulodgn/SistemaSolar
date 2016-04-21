@@ -9,6 +9,9 @@
 
 
 
+
+
+
 void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float distanceToPlanet, char imagePath[255])
 {
 	this->radius = radius;
@@ -21,6 +24,7 @@ void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float d
 	this->z = 0;
 	this->angle = 0;
 	load_tga_image();
+	
 }
 
 void Lua::load_tga_image()
@@ -101,6 +105,7 @@ void Lua::DrawOrbit(float x, float y, float z, GLfloat radius)
 
 	glEnd();
 }
+
 
 void Lua::Update()
 {
