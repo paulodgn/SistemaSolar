@@ -11,6 +11,7 @@ enum cameraMode
 
 };
 
+float direcaoX=0, direcaoY=0,direcaoZ = -1;
 cameraMode camMode;
 
 void Camera::InitCamera()
@@ -23,6 +24,7 @@ void Camera::InitCamera()
 	this->distanceToSun = 20;
 	this->angle = 0;
 	this->velocidadeOrbita = 0.1;
+	this->camAngle = 0;
 	camMode = freeCam;
 }
 
@@ -33,7 +35,7 @@ void Camera::Input(unsigned char key)
 
 		if (key == 27) exit(0);
 
-		if (key == 'A')
+		if (key == 'Q')
 		{
 			printf("tecla a \n");
 			this->x += 0.05 * speed;
@@ -44,7 +46,7 @@ void Camera::Input(unsigned char key)
 			printf("tecla s\n");
 			this->z -= 0.05 * speed;
 		}
-		if (key == 'D')
+		if (key == 'E')
 		{
 			printf("tecla d\n");
 			this->x -= 0.05 * speed;
@@ -54,12 +56,12 @@ void Camera::Input(unsigned char key)
 			printf("tecla w\n");
 			this->z += 0.05 * speed;
 		}
-		if (key == 'Q')
+		if (key == 'Z')
 		{
 			printf("tecla q\n");
 			this->y += 0.05 * speed;
 		}
-		if (key == 'E')
+		if (key == 'C')
 		{
 			printf("tecla q\n");
 			this->y -= 0.05 * speed;
@@ -72,6 +74,17 @@ void Camera::Input(unsigned char key)
 		if (key == 'O')
 		{
 			camMode = orbit;
+		}
+		//left arrow
+		if (key == 'D')
+		{
+			camAngle += 0.01;
+					
+		}
+		if (key == 'A')
+		{
+			camAngle -= 0.01;
+
 		}
 		
 	
@@ -86,7 +99,11 @@ void Camera::Update()
 {
 	if (camMode == freeCam)
 	{
-		glTranslatef(x, y, z);
+		direcaoX = sin(camAngle);
+		direcaoZ = -cos(camAngle);
+		
+		gluLookAt(x, y, z,x + direcaoX , y, z + direcaoZ ,0.0f, 1.0f, 0.0f);
+		
 	}
 	if (camMode == orbit)
 	{
@@ -99,5 +116,86 @@ void Camera::Update()
 		angle += 0.1;
 	}
 	
+	
 }
 
+
+//float angle = 0.0, deltaAngle = 0.0, ratio;
+//float x = 0.0f, y = 1.75f, z = 5.0f;
+//float lx = 0.0f, ly = 0.0f, lz = -1.0f;
+//int deltaMove = 0, h = 400, w = 400, border = 6;
+//
+//void orientMe(float ang)
+//{
+//	lx = sin(ang);
+//	lz = -cos(ang);
+//}
+//
+//
+//void moveMeFlat(int i)
+//{
+//	x = x + i * (lx)* 0.1;
+//	z = z + i * (lz)* 0.1;
+//}
+//
+//void pressKey(int key, int x, int y)
+//{
+//	switch (key)
+//	{
+//	case GLUT_KEY_LEFT:
+//		deltaAngle = -0.01f;
+//		break;
+//	case GLUT_KEY_RIGHT:
+//		deltaAngle = 0.01f;
+//		break;
+//	case GLUT_KEY_UP:
+//		deltaMove = 1;
+//		break;
+//	case GLUT_KEY_DOWN:
+//		deltaMove = -1;
+//		break;
+//	default:
+//		break;
+//	}
+//}
+//
+//
+//void releaseKey(int key, int x, int y)
+//{
+//	switch (key)
+//	{
+//	case GLUT_KEY_LEFT:
+//		if (deltaAngle < 0.0f) deltaAngle = 0.0f;
+//		break;
+//	case GLUT_KEY_RIGHT:
+//		if (deltaAngle > 0.0f) deltaAngle = 0.0f;
+//		break;
+//	case GLUT_KEY_UP:
+//		if (deltaMove > 0) deltaMove = 0;
+//		break;
+//	case GLUT_KEY_DOWN:
+//		if (deltaMove < 0) deltaMove = 0;
+//		break;
+//	default:
+//		break;
+//	}
+//}
+//
+//
+//void renderSceneAll(void)
+//{
+//	if (deltaMove)
+//	{
+//		moveMeFlat(deltaMove);
+//	}
+//	if (deltaAngle)
+//	{
+//		angle += deltaAngle;
+//		orientMe(angle);
+//	}
+//
+//	//	renderScene();
+//	renderScenesw1();
+//	renderScenesw2();
+//	renderScenesw3();
+//}
