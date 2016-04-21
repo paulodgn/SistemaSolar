@@ -22,6 +22,7 @@ public:
 	void Update();
 	void load_tga_image();
 	void DrawOrbit(float x, float y, float z, GLfloat radius);
+	
 
 
 
