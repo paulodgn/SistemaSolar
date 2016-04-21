@@ -75,14 +75,14 @@ void Lua::Draw(float planetaX, float planetaY, float planetaZ)
 		angle += 0.1;
 
 	}
-
+	
 	glRotatef(-20, 0.0, 0.0, 1.0);
 	glRotatef(spin, 0.0, 1.0, 0.0);
 	glRotatef(-65, 1.0, 0.0, 0.0);
 	gluSphere(mysolid, radius, 100, 100);
 	glPopMatrix();
 
-	DrawOrbit(x, y, z, distanceToPlanet);
+	
 
 	glDisable(GL_TEXTURE_2D);
 }
@@ -91,11 +91,11 @@ void Lua::DrawOrbit(float x, float y, float z, GLfloat radius)
 {
 	glBegin(GL_LINE_LOOP);
 
-	for (float i = 0; i<(3.14 * 2); i += 3.14 / 180)
+	for (float i = 0; i<(3.14 * 4); i += 3.14 / 180)
 
 	{
-		x = sin(i)*radius;
-		z = cos(i)*radius;
+		x = (sin(i)*distanceToPlanet);
+		z = (cos(i)*distanceToPlanet);
 		glVertex3f(x, 0, z);
 	}
 
@@ -110,5 +110,6 @@ void Lua::Update()
 	{
 		spin = spin - 360.0;
 	}
+
 
 }

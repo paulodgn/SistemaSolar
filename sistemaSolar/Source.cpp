@@ -135,10 +135,10 @@ void reshape(GLsizei w, GLsizei h)
 void CreatePlanetas()
 {
 	//sol, mercurio, venus, terra, marte, jupiter, saturno, uranus, neptuno;
-	sol.CreatePlaneta(2,false,false,0, 0, "images/sun.tga");
+	sol.CreatePlaneta(2,true,false,0, 0, "images/sun.tga");
 	mercurio.CreatePlaneta(0.5, true, false, 0.03, 5, "images/mercury.tga");
 	venus.CreatePlaneta(0.7, true, false, 0.06, 7, "images/venus.tga");
-	terra.CreatePlaneta(1, true,true, 0.05, 10, "images/earth.tga");
+	terra.CreatePlaneta(1, true, true, 0.05, 10, "images/earth.tga");
 
 	marte.CreatePlaneta(1,true,false,0.08, 15, "images/mars.tga");
 	jupiter.CreatePlaneta(3, true, false, 0.04,20, "images/jupiter.tga");
@@ -154,13 +154,14 @@ void DrawPlanetas()
 	sol.Draw();
 	mercurio.Draw();
 	venus.Draw();
-	terra.Draw();
+	
 
 	marte.Draw();
 	jupiter.Draw();
 	saturno.Draw();
 	uranus.Draw();
 	neptuno.Draw();
+	terra.Draw();
 }
 
 void UpdatePlanetas()

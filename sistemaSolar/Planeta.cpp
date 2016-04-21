@@ -95,27 +95,36 @@ void Planeta::Draw()
 		
 		if (hasOrbit)
 		{
-
+			
 			x = distanceToSun * cos(angle);
 			y = 0;
 			z = distanceToSun * sin(angle);
+
 			glTranslatef(x, 0, z);
 			angle += 0.1 * velocidadeOrbita ;
+			
 
 		}
+		
 		
 		glRotatef(-20, 0.0, 0.0, 1.0);
 		glRotatef(spin, 0.0, 1.0, 0.0);
 		glRotatef(-65, 1.0, 0.0, 0.0);
 		gluSphere(mysolid, radius, 100, 100);
 		
+		//glTranslatef(x, 0, z);
+		
 		glPopMatrix();
 		DrawOrbit(x,y,z,distanceToSun);
 		if (hasMoon)
 		{
-			lua.Draw(this->x,this->y, this->z);
 			
+			lua.Draw(this->x,this->y, this->z);
 			lua.Update();
+			glTranslatef(this->x, this->y, this->z);
+			lua.DrawOrbit(this->x, this->y, this->z, distanceToSun);
+			
+			
 		}
 		
 		glDisable(GL_TEXTURE_2D);
@@ -159,6 +168,7 @@ void Planeta::DrawOrbit(float x, float y, float z, GLint radius)
 		glVertex3f(x, 0, z);
 	}
 
+	
 	glEnd();
 }
 
