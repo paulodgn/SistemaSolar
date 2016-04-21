@@ -135,16 +135,22 @@ void reshape(GLsizei w, GLsizei h)
 void CreatePlanetas()
 {
 	//sol, mercurio, venus, terra, marte, jupiter, saturno, uranus, neptuno;
+	//distancias à escala
+	//distancia original de mercurio ao sol corresponde a 5 unidades
+	//todas a distancias são calculadas com base na anterior
+	//raio original de mercurio corresponde a 0.5 unidades
+	//todos os outros raios são calculados atravez deste ultimo 
+	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
 	sol.CreatePlaneta(2,true,false,0, 0, "images/sun.tga");
 	mercurio.CreatePlaneta(0.5, true, false, 0.03,5, "images/mercury.tga");
-	venus.CreatePlaneta(0.7, true, false, 0.06,9.34 , "images/venus.tga");
-	terra.CreatePlaneta(1, true, true, 0.05, 12.92, "images/earth.tga");
+	venus.CreatePlaneta(1.24, true, false, 0.06,9.34 , "images/venus.tga");
+	terra.CreatePlaneta(1.3, true, true, 0.05, 12.92, "images/earth.tga");
 
-	marte.CreatePlaneta(1,true,false,0.08, 19.68, "images/mars.tga");
-	jupiter.CreatePlaneta(3, true, false, 0.04,67.2, "images/jupiter.tga");
-	saturno.CreatePlaneta(2.8, true, false, 0.09,123.42, "images/saturn.tga");
-	uranus.CreatePlaneta(1.5, true, false, 0.07, 247.89, "images/uranus.tga");
-	neptuno.CreatePlaneta(1.5, true, false, 0.03, 388.91, "images/neptune.tga");
+	marte.CreatePlaneta(0.7,true,false,0.08, 19.68, "images/mars.tga");
+	jupiter.CreatePlaneta(3.66, true, false, 0.04,67.2, "images/jupiter.tga");
+	saturno.CreatePlaneta(3.09, true, false, 0.09,123.42, "images/saturn.tga");
+	uranus.CreatePlaneta(1.31, true, false, 0.07, 247.89, "images/uranus.tga");
+	neptuno.CreatePlaneta(1.28, true, false, 0.03, 388.91, "images/neptune.tga");
 
 }
 
