@@ -77,7 +77,7 @@ void Planeta::load_tga_image()
 void Planeta::AddMoon()
 {
 
-	lua.CreateLua(0.2, true, 0.2, 1.5, "images/moon.tga");
+	lua.CreateLua(0.2, true, 0.2, 1.95, "images/moon.tga");
 }
 
 void Planeta::Draw()
@@ -115,7 +115,7 @@ void Planeta::Draw()
 		//glTranslatef(x, 0, z);
 		
 		glPopMatrix();
-		DrawOrbit(x,y,z,distanceToSun);
+		DrawOrbit(x,y,z,distanceToSun+radius/2);
 		if (hasMoon)
 		{
 			
