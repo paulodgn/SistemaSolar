@@ -105,7 +105,7 @@ void applylights(void)
 	// Desenha uma esfera que sinaliza a posição da light0
 	glPushMatrix();
 	glColor3f(1.0, 1.0, 1.0);
-	glTranslatef(0.0f, 3.0f, 0.0f);
+	glTranslatef(0.0f, 0.0f, 0.0f);
 	glutSolidSphere(0.1, 20, 20);
 	glPopMatrix();
 
@@ -131,7 +131,25 @@ void reshape(GLsizei w, GLsizei h)
 	glTranslatef(0.0, 0.0, -10.0);
 }
 
+void applymaterial(int type)
+{
+	// Define as propriedades dos materiais
+	// Type: 0 (Branco); 1 (Amarelo); 2 (Ciano); 3 (Branco-Emissor)
+	GLfloat mat_ambient[4][4] = { { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } };
+	GLfloat mat_diffuse[4][4] = { { 0.5f, 0.5f, 0.5f, 1.0f }, { 0.5f, 0.5f, 0.0f, 1.0f }, { 0.0f, 0.5f, 0.5f, 1.0f }, { 0.5f, 0.5f, 0.5f, 1.0f } };
+	GLfloat mat_specular[4][4] = { { 1.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 0.0f, 1.0f }, { 0.0f, 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } };
+	GLfloat mat_emission[4][4] = { { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f, 1.0f, 1.0f } };
+	GLfloat mat_shininess[4][1] = { { 20.0f }, { 20.0f }, { 20.0f }, { 20.0f } };
 
+	if ((type >= 0) && (type < 4))
+	{
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient[type]); // GL_FRONT, GL_FRONT_AND_BACK , GL_BACK, 
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_diffuse[type]);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular[type]);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mat_emission[type]);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess[type]);
+	}
+}
 
 void CreatePlanetas()
 {
@@ -142,17 +160,19 @@ void CreatePlanetas()
 	//raio original de mercurio corresponde a 0.5 unidades
 	//todos os outros raios são calculados atravez deste ultimo 
 	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
-	sol.CreatePlaneta(2,true,0,0, 0, "images/sun.tga");
-	mercurio.CreatePlaneta(0.5, true, 0, 0.03,5, "images/mercury.tga");
-	venus.CreatePlaneta(1.24, true, 0, 0.06,9.34 , "images/venus.tga");
-	terra.CreatePlaneta(1.3, true, 1, 0.05, 12.92, "images/earth.tga");
+	applymaterial(3);
+	sol.CreatePlaneta(2,3,true,0,0, 0, "images/sun.tga");
+	
+	mercurio.CreatePlaneta(0.5,3, true, 0, 0.03,5, "images/mercury.tga");
+	venus.CreatePlaneta(1.24,3, true, 0, 0.06,9.34 , "images/venus.tga");
+	terra.CreatePlaneta(1.3,3, true, 1, 0.05, 12.92, "images/earth.tga");
 
-	marte.CreatePlaneta(0.7,true,0,0.08, 19.68, "images/mars.tga");
-	jupiter.CreatePlaneta(3.66, true, 0, 0.04,67.2, "images/jupiter.tga");
-	saturno.CreatePlaneta(3.09, true, 0, 0.09,123.42, "images/saturn.tga");
-	uranus.CreatePlaneta(1.31, true, 0, 0.07, 247.89, "images/uranus.tga");
-	neptuno.CreatePlaneta(1.28, true, 0, 0.03, 388.91, "images/neptune.tga");
-
+	marte.CreatePlaneta(0.7,3,true,0,0.08, 19.68, "images/mars.tga");
+	jupiter.CreatePlaneta(3.66,3, true, 0, 0.04,67.2, "images/jupiter.tga");
+	saturno.CreatePlaneta(3.09,3, true, 0, 0.09,123.42, "images/saturn.tga");
+	uranus.CreatePlaneta(1.31,3, true, 0, 0.07, 247.89, "images/uranus.tga");
+	neptuno.CreatePlaneta(1.28,3, true, 0, 0.03, 388.91, "images/neptune.tga");
+	
 }
 
 void DrawPlanetas()

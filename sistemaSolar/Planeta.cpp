@@ -17,7 +17,7 @@ unsigned char key;
 bool visible = false;
 
 //construtor
-void Planeta::CreatePlaneta(double radius, bool hasOrbit,float numberOfMoons, float velocidadeOrbita, float distanceToSun, char imagePath[255])
+void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit,float numberOfMoons, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
 		this->radius = radius;
 		this->distanceToSun = distanceToSun;
@@ -61,7 +61,7 @@ void Planeta::load_tga_image()
 		gluQuadricTexture(mysolid, GL_TRUE);
 
 		// select modulate to mix texture with color for shading
-		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
 		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // MIPMAP
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -70,7 +70,7 @@ void Planeta::load_tga_image()
 		// build our texture mipmaps
 		//gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGB, im->width, im->height, GL_RGB, GL_UNSIGNED_BYTE, im->imageData); // MIPMAP
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, im->width, im->height, 0, GL_RGB, GL_UNSIGNED_BYTE, im->imageData);
-
+		
 		// Destroi a imagem
 		tgaDestroy(im);
 	}
@@ -88,6 +88,8 @@ void Planeta::AddMoon()
 
 	
 }
+
+
 //desenhar planeta
 void Planeta::Draw()
 	{
@@ -99,7 +101,9 @@ void Planeta::Draw()
 		glBindTexture(GL_TEXTURE_2D, texture);
 		// Desenha esfera
 		glPushMatrix();
+
 		
+
 		int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
 		//se tiver orbita é calculada. Unico que nao tem é o sol.
 		if (hasOrbit)
