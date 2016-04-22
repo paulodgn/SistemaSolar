@@ -16,7 +16,7 @@ Lua lua;
 unsigned char key;
 bool visible = false;
 
-
+//construtor
 void Planeta::CreatePlaneta(double radius, bool hasOrbit,float numberOfMoons, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
 		this->radius = radius;
@@ -36,7 +36,7 @@ void Planeta::CreatePlaneta(double radius, bool hasOrbit,float numberOfMoons, fl
 			AddMoon();
 		
 	}
-
+//load texture do planeta
 void Planeta::load_tga_image()
 	{
 		//char impathfile[255] = "images/earth.tga";
@@ -75,6 +75,7 @@ void Planeta::load_tga_image()
 		tgaDestroy(im);
 	}
 
+//criar lua no planeta
 void Planeta::AddMoon()
 {
 	for (float i = 0; i <= numberOfMoons; i++)
@@ -87,11 +88,11 @@ void Planeta::AddMoon()
 
 	
 }
-
+//desenhar planeta
 void Planeta::Draw()
 	{
 	
-		//load da textura
+		
 	
 		glEnable(GL_TEXTURE_2D);
 		// Select texture
@@ -100,7 +101,7 @@ void Planeta::Draw()
 		glPushMatrix();
 		
 		int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
-		
+		//se tiver orbita é calculada. Unico que nao tem é o sol.
 		if (hasOrbit)
 		{
 			
@@ -114,17 +115,16 @@ void Planeta::Draw()
 
 		}
 		
-		
+		//rotaçao planeta
 		glRotatef(-20, 0.0, 0.0, 1.0);
 		glRotatef(spin, 0.0, 1.0, 0.0);
 		glRotatef(-65, 1.0, 0.0, 0.0);
 		gluSphere(mysolid, radius, 100, 100);
 		
-		//glTranslatef(x, 0, z);
-		
 		glPopMatrix();
+		//desenhar orbita em torno ddo sol
 		DrawOrbit(x,y,z,distanceToSun+radius/2);
-
+		//atualização das luas
 		for (float i = 0; i < numberOfMoons; i++)
 		{
 			lua.Draw(this->x, this->y, this->z);
@@ -147,7 +147,7 @@ void Planeta::Draw()
 		glDisable(GL_TEXTURE_2D);
 		
 	}
-
+//gestao input
 void Planeta::Input(unsigned char key)
 {
 	key = toupper(key);
@@ -185,7 +185,7 @@ void Planeta::Update()
 	}
 	
 }
-
+//desenhar orbita planeta
 void Planeta::DrawOrbit(float x, float y, float z, GLint radius)
 {
 	if (visible)

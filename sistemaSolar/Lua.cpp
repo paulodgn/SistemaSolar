@@ -11,7 +11,7 @@
 
 
 
-
+//construtor
 void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float distanceToPlanet, char imagePath[255])
 {
 	this->radius = radius;
@@ -27,7 +27,7 @@ void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float d
 	load_tga_image();
 	
 }
-
+//load textura
 void Lua::load_tga_image()
 {
 
@@ -63,13 +63,15 @@ void Lua::load_tga_image()
 	// Destroi a imagem
 	tgaDestroy(im);
 }
-
+//desenhar lua
 void Lua::Draw(float planetaX, float planetaY, float planetaZ)
 {
 	glEnable(GL_TEXTURE_2D);
 	// Select texture
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glPushMatrix();
+
+	//calculo orbita
 	if (hasOrbit)
 	{
 
@@ -80,7 +82,7 @@ void Lua::Draw(float planetaX, float planetaY, float planetaZ)
 		angle += 0.1;
 
 	}
-	
+	//rotacao
 	glRotatef(-20, 0.0, 0.0, 1.0);
 	glRotatef(spin, 0.0, 1.0, 0.0);
 	glRotatef(-65, 1.0, 0.0, 0.0);
@@ -115,7 +117,7 @@ void Lua::DrawOrbit(float x, float y, float z, GLfloat radius)
 
 void Lua::Update()
 {
-	//rotacao planeta
+
 	spin = spin + 0.1;
 	if (spin > 360.0)
 	{
