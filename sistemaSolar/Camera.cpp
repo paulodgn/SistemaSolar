@@ -11,8 +11,9 @@ enum cameraMode
 
 };
 
-float direcaoX=0, direcaoY=0,direcaoZ = -1;
+float direcaoX=0, direcaoY=0,direcaoZ = 5;
 cameraMode camMode;
+
 
 void Camera::InitCamera()
 {
@@ -26,6 +27,10 @@ void Camera::InitCamera()
 	this->velocidadeOrbita = 0.1;
 	this->camAngle = 0;
 	camMode = freeCam;
+	this->deltaAngle = 0;
+	xOrigin = -1;
+	this->posicaoRatoInicialX = 700;
+	this->posicaRatoInicialY = 0;
 	
 }
 
@@ -84,7 +89,7 @@ void Camera::Input(unsigned char key)
 			camMode = orbit;
 		}
 		//left arrow
-		if (key == 'D')
+	/*	if (key == 'D')
 		{
 			camAngle += 0.01;
 				
@@ -93,8 +98,8 @@ void Camera::Input(unsigned char key)
 		{
 			camAngle -= 0.01;
 
-		}
-		if (key == 'T')
+		}*/
+		/*if (key == 'T')
 		{
 			direcaoY += 0.1;
 
@@ -103,24 +108,57 @@ void Camera::Input(unsigned char key)
 		{
 			direcaoY -= 0.1;
 
-		}
+		}*/
 		
 		
 	
 }
 
-void Camera::Move()
-{
 
+
+
+//https://gist.github.com/23ars/4545671, codigo adaptado do algoritmo do link
+void Camera::MouseMove(int xr, int yr)
+{
+	
+	if (xOrigin >= 0) {
+
+		// update deltaAngle, diferença da posicao atual com a da origem
+		deltaAngle = (xr - xOrigin) * 0.001f;
+
+		// calculada nova direçao
+		direcaoX = sin(camAngle + deltaAngle);
+		direcaoZ = -cos(camAngle + deltaAngle);
+	}
+	
+	
 }
+
+void Camera::MouseButton(int button, int state, int xr, int yr)
+{
+	
+	 //inicia quando botao esta pressionado
+	if (button == GLUT_LEFT_BUTTON) {
+
+		// quanto botao é largado
+		if (state == GLUT_UP) {
+			camAngle += deltaAngle;
+			xOrigin = -1;
+		}
+		else  {// origem passa a ser posicao actual
+			xOrigin = xr;
+		}
+	}
+}
+
 
 void Camera::Update()
 {
+
 	if (camMode == freeCam)
 	{
-		direcaoX = sin(camAngle);
 		
-		direcaoZ = -cos(camAngle);
+		
 		
 		gluLookAt(x,y,z, x + direcaoX, y + direcaoY, z + direcaoZ, 0.0f, 1.0f, 0.0f);
 		

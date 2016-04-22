@@ -30,6 +30,7 @@ float solX=0, solY=0, solZ=0;
 Planeta sol,mercurio,venus, terra, marte, jupiter, saturno, uranus, neptuno;
 std::list<Planeta> listaPlanetas;
 Camera freeCamera;
+float xOrigin;
 
 void init(void)
 {
@@ -233,6 +234,18 @@ void Input(unsigned char key, int x, int y)
 
 
 
+void mouseMove(int x, int y) 
+{
+
+	freeCamera.MouseMove( x,  y);
+}
+
+void mouseButton(int button, int state, int x, int y)
+{
+	freeCamera.MouseButton(button, state, x, y);
+
+}
+
 int main(int argc, char** argv)
 {
 	
@@ -268,6 +281,8 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(display);//display
+	glutMouseFunc(mouseButton);
+	glutMotionFunc(mouseMove);
 
 	// Ciclo infinito do GLUT
 	glutMainLoop();
