@@ -90,18 +90,20 @@ void Planeta::AddMoon()
 }
 
 
+
+
 //desenhar planeta
 void Planeta::Draw()
 	{
 	
-		
+	
 	
 		glEnable(GL_TEXTURE_2D);
 		// Select texture
 		glBindTexture(GL_TEXTURE_2D, texture);
 		// Desenha esfera
 		glPushMatrix();
-
+		
 		
 
 		int timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
@@ -125,6 +127,7 @@ void Planeta::Draw()
 		glRotatef(-65, 1.0, 0.0, 0.0);
 		gluSphere(mysolid, radius, 100, 100);
 		
+
 		glPopMatrix();
 		//desenhar orbita em torno ddo sol
 		DrawOrbit(x,y,z,distanceToSun+radius/2);
@@ -148,6 +151,8 @@ void Planeta::Draw()
 			
 		}
 		*/
+		
+		
 		glDisable(GL_TEXTURE_2D);
 		
 	}

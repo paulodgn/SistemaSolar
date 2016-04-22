@@ -45,57 +45,78 @@ void init(void)
 
 void initLights(void)
 {
-	// Define a luz ambiente global
-	GLfloat global_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
-	// Define a luz light0. Existem 8 fontes de luz no total.
-	GLfloat light0_ambient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	GLfloat light0_diffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-	GLfloat light0_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	// Define a luz light1. Existem 8 fontes de luz no total.
-	GLfloat light1_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
-	GLfloat light1_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat light1_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat spot_angle = 45.0f;
-	GLfloat spot_exp = 12.0f; // Maior valor = maior concentração de luz no centro
+	
+	//// Define a luz ambiente global
+	//GLfloat global_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	//// Define a luz light0. Existem 8 fontes de luz no total.
+	//GLfloat light0_ambient[] = { 0.3f, 0.3f, 0.3f, 1.0f };
+	//GLfloat light0_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//GLfloat light0_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//// Define a luz light1. Existem 8 fontes de luz no total.
+	//GLfloat light1_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	//GLfloat light1_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//GLfloat light1_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//GLfloat spot_angle = 45.0f;
+	//GLfloat spot_exp = 12.0f; // Maior valor = maior concentração de luz no centro
 
-	// Fonte de luz ambiente
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
+	//// Fonte de luz ambiente
+	//glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
 
-	// Fonte de luz posicional
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
-	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05);
-	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.05);
+	//// Fonte de luz posicional
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, light0_ambient);
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE, light0_diffuse);
+	//glLightfv(GL_LIGHT0, GL_SPECULAR, light0_specular);
+	//glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.1);
+	//glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 0.05);
+	//glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.05);
 
-	// Fonte de luz cónica
-	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spot_angle);
-	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, spot_exp);
+	//// Fonte de luz cónica
+	//glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+	//glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
+	//glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+	//glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, spot_angle);
+	//glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, spot_exp);
+	//
+	//// Activa a utilização de iluminação
+	//glEnable(GL_LIGHTING);
+	//
+	//// Activa a fonte de luz light0
+	//glEnable(GL_LIGHT0);
+	//// Activa a fonte de luz light1
+	//glEnable(GL_LIGHT1);
+	
+	//glEnable(GL_LIGHTING);
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+	//glMatrixMode(GL_MODELVIEW);
 
-	// Activa a utilização de iluminação
+	GLfloat lightAmbient[] = { 0.3, 0.3, 0.3, 1.0 };
+	GLfloat lightDiffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat lightSpecular[] = { 1.0, 1.0, 1.0, 1.0 };
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
+
 	glEnable(GL_LIGHTING);
-	// Activa a fonte de luz light0
 	glEnable(GL_LIGHT0);
-	// Activa a fonte de luz light1
-	glEnable(GL_LIGHT1);
+	glDisable(GL_LIGHTING);
 }
 
 void applylights(void)
 {
 	// Define a posição de light0
-	GLfloat light0_position[] = { 0.0f, 3.0f, 0.0f, 1.0f };
+	GLfloat light0_position[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	// Define a posição de direcção de light1
-	GLfloat spot_position[] = { 0.0f, 3.0f, -10.0f, 1.0f };
-	GLfloat spot_direction[] = { 0.0f, -1.0f, 0.0f };
+	GLfloat spot_position[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	GLfloat spot_direction[] = { 0.0f, 0.0f, 0.0f };
+
+
 
 	// Aplica a light0
 	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
-
+	
 	// Aplica a light1
 	glLightfv(GL_LIGHT1, GL_POSITION, spot_position);
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
@@ -103,18 +124,18 @@ void applylights(void)
 	glDisable(GL_LIGHTING);
 
 	// Desenha uma esfera que sinaliza a posição da light0
-	glPushMatrix();
+	/*glPushMatrix();
 	glColor3f(1.0, 1.0, 1.0);
 	glTranslatef(0.0f, 0.0f, 0.0f);
 	glutSolidSphere(0.1, 20, 20);
-	glPopMatrix();
+	glPopMatrix();*/
 
 	// Desenha uma esfera que sinaliza a posição da light1
-	glPushMatrix();
+	/*glPushMatrix();
 	glColor3f(1.0, 1.0, 1.0);
 	glTranslatef(0.0f, 3.0f, -10.0f);
 	glutSolidSphere(0.1, 20, 20);
-	glPopMatrix();
+	glPopMatrix();*/
 
 	glEnable(GL_LIGHTING);
 }
@@ -160,25 +181,26 @@ void CreatePlanetas()
 	//raio original de mercurio corresponde a 0.5 unidades
 	//todos os outros raios são calculados atravez deste ultimo 
 	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
-	applymaterial(3);
+	
 	sol.CreatePlaneta(2,3,true,0,0, 0, "images/sun.tga");
 	
-	mercurio.CreatePlaneta(0.5,3, true, 0, 0.03,5, "images/mercury.tga");
-	venus.CreatePlaneta(1.24,3, true, 0, 0.06,9.34 , "images/venus.tga");
-	terra.CreatePlaneta(1.3,3, true, 1, 0.05, 12.92, "images/earth.tga");
+	mercurio.CreatePlaneta(0.5,0, true, 0, 0.03,5, "images/mercury.tga");
+	venus.CreatePlaneta(1.24,0, true, 0, 0.06,9.34 , "images/venus.tga");
+	terra.CreatePlaneta(1.3,0, true, 1, 0.05, 12.92, "images/earth.tga");
 
-	marte.CreatePlaneta(0.7,3,true,0,0.08, 19.68, "images/mars.tga");
-	jupiter.CreatePlaneta(3.66,3, true, 0, 0.04,67.2, "images/jupiter.tga");
-	saturno.CreatePlaneta(3.09,3, true, 0, 0.09,123.42, "images/saturn.tga");
-	uranus.CreatePlaneta(1.31,3, true, 0, 0.07, 247.89, "images/uranus.tga");
-	neptuno.CreatePlaneta(1.28,3, true, 0, 0.03, 388.91, "images/neptune.tga");
+	marte.CreatePlaneta(0.7,0,true,0,0.08, 19.68, "images/mars.tga");
+	jupiter.CreatePlaneta(3.66,0, true, 0, 0.04,67.2, "images/jupiter.tga");
+	saturno.CreatePlaneta(3.09,0, true, 0, 0.09,123.42, "images/saturn.tga");
+	uranus.CreatePlaneta(1.31,0, true, 0, 0.07, 247.89, "images/uranus.tga");
+	neptuno.CreatePlaneta(1.28,0, true, 0, 0.03, 388.91, "images/neptune.tga");
 	
 }
 
 void DrawPlanetas()
 {
-	
+	applymaterial(3);
 	sol.Draw();
+	applymaterial(0);
 	mercurio.Draw();
 	venus.Draw();
 	marte.Draw();
