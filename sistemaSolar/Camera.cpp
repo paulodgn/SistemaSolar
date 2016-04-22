@@ -11,21 +11,21 @@ enum cameraMode
 
 };
 
-float direcaoX=0, direcaoY=0,direcaoZ = 0;
+float direcaoX=0, direcaoY=0,direcaoZ = -1;
 cameraMode camMode;
 
 void Camera::InitCamera()
 {
 	this->x = 0;
 	this->y = 0;
-	this->z = -20;
+	this->z = -10;
 	this->forward = 0;
-	this->speed = 1;
+	this->speed = 0.1;
 	this->distanceToSun = 20;
 	this->angle = 0;
 	this->velocidadeOrbita = 0.1;
 	this->camAngle = 0;
-	camMode = orbit;
+	camMode = freeCam;
 	
 }
 
@@ -45,7 +45,10 @@ void Camera::Input(unsigned char key)
 		if (key == 'S')
 		{
 			printf("tecla s\n");
-			this->z -= 0.05 * speed;
+			this->x -= direcaoX * speed;
+			this->y -= direcaoY * speed;
+			this->z -= direcaoZ * speed;
+			
 		}
 		if (key == 'E')
 		{
@@ -55,7 +58,11 @@ void Camera::Input(unsigned char key)
 		if (key == 'W')
 		{
 			printf("tecla w\n");
-			this->z += 0.05 * speed;
+			//this->z += 0.05 * speed;
+			this->x += direcaoX * speed;
+			this->y += direcaoY * speed;
+			this->z += direcaoZ * speed;
+			
 		}
 		if (key == 'Z')
 		{
