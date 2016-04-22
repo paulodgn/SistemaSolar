@@ -9,6 +9,7 @@ public:
 	bool hasOrbit;
 	float velocidadeOrbita;
 	float angle;
+	bool visible;
 	GLuint texture;
 	tgaInfo *im;
 

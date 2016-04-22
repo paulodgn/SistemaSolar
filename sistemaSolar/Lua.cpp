@@ -22,6 +22,7 @@ void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float d
 	this->x = distanceToPlanet;
 	this->y = 0;
 	this->z = 0;
+	this->visible = false;
 	this->angle = 0;
 	load_tga_image();
 	
@@ -93,17 +94,22 @@ void Lua::Draw(float planetaX, float planetaY, float planetaZ)
 
 void Lua::DrawOrbit(float x, float y, float z, GLfloat radius)
 {
-	glBegin(GL_LINE_LOOP);
-
-	for (float i = 0; i<(3.14 * 4); i += 3.14 / 180)
-
+	if (visible)
 	{
-		x = (sin(i)*distanceToPlanet);
-		z = (cos(i)*distanceToPlanet);
-		glVertex3f(x, 0, z);
-	}
+		glBegin(GL_LINE_LOOP);
 
-	glEnd();
+		for (float i = 0; i<(3.14 * 4); i += 3.14 / 180)
+
+		{
+			x = (sin(i)*distanceToPlanet);
+			z = (cos(i)*distanceToPlanet);
+			glVertex3f(x, 0, z);
+		}
+
+		glEnd();
+
+	}
+	
 }
 
 
