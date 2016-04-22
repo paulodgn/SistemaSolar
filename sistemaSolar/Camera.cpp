@@ -13,7 +13,7 @@ enum cameraMode
 
 float direcaoX=0, direcaoY=0,direcaoZ = 5;
 cameraMode camMode;
-
+float deltaAngleY;
 
 void Camera::InitCamera()
 {
@@ -26,12 +26,12 @@ void Camera::InitCamera()
 	this->angle = 0;
 	this->velocidadeOrbita = 0.1;
 	this->camAngle = 0;
+	this->camAngleY = 0;
 	camMode = freeCam;
 	this->deltaAngle = 0;
+	deltaAngleY = 0;
 	xOrigin = -1;
-	this->posicaoRatoInicialX = 700;
-	this->posicaRatoInicialY = 0;
-	
+	yOrigin = -1;
 }
 
 void Camera::Input(unsigned char key)
@@ -125,9 +125,10 @@ void Camera::MouseMove(int xr, int yr)
 
 		// update deltaAngle, diferença da posicao atual com a da origem
 		deltaAngle = (xr - xOrigin) * 0.001f;
-
+		deltaAngleY = (yr - yOrigin) * 0.001f;
 		// calculada nova direçao
 		direcaoX = sin(camAngle + deltaAngle);
+		direcaoY = -sin(camAngleY + deltaAngleY);
 		direcaoZ = -cos(camAngle + deltaAngle);
 	}
 	
@@ -143,10 +144,13 @@ void Camera::MouseButton(int button, int state, int xr, int yr)
 		// quanto botao é largado
 		if (state == GLUT_UP) {
 			camAngle += deltaAngle;
+			camAngle += deltaAngleY;
 			xOrigin = -1;
+			yOrigin = -1;
 		}
 		else  {// origem passa a ser posicao actual
 			xOrigin = xr;
+			yOrigin = yr;
 		}
 	}
 }
@@ -157,12 +161,9 @@ void Camera::Update()
 
 	if (camMode == freeCam)
 	{
-		
-		
-		
+
 		gluLookAt(x,y,z, x + direcaoX, y + direcaoY, z + direcaoZ, 0.0f, 1.0f, 0.0f);
-		
-		
+
 	}
 	if (camMode == orbit)
 	{

@@ -15,10 +15,10 @@ public:
 	float angle;
 	float distanceToSun;
 	float velocidadeOrbita;
-	float camAngle;
+	float camAngle, camAngleY;
 	float deltaAngle;
-	int xOrigin;
-	float diferencaX, diferencaY, posicaoRatoInicialX, posicaRatoInicialY;
+	int xOrigin, yOrigin;
+	
 
 private:
 
