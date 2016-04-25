@@ -64,9 +64,9 @@ void Camera::Input(unsigned char key)
 		{
 			printf("tecla w\n");
 			//this->z += 0.05 * speed;
-			this->x += direcaoX * speed;
-			this->y += direcaoY * speed;
-			this->z += direcaoZ * speed;
+			this->x += direcaoX * speed * 0.1;
+			this->y += direcaoY * speed * 0.1;
+			this->z += direcaoZ * speed * 0.1;
 			
 		}
 		if (key == 'Z')

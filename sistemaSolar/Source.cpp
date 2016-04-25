@@ -10,7 +10,10 @@
 #include "Planeta.h"
 #include "Lua.h"
 #include "Camera.h"
+#include "Skybox.h"
 #include <list>
+
+
 
 
 // Protótipos de funções
@@ -31,6 +34,7 @@ Planeta sol,mercurio,venus, terra, marte, jupiter, saturno, uranus, neptuno;
 std::list<Planeta> listaPlanetas;
 Camera freeCamera;
 float xOrigin;
+Skybox skybox;
 
 void init(void)
 {
@@ -40,6 +44,7 @@ void init(void)
 	// Activa o teste de profundidade
 	glEnable(GL_DEPTH_TEST);
 
+	skybox.CreateSkybox();
 	freeCamera.InitCamera();
 }
 
@@ -246,6 +251,7 @@ void display(void)
 	applylights();
 	
 	//desenha e faz update aos planetas
+	skybox.Draw();
 	DrawPlanetas();
 	UpdatePlanetas();
 	
