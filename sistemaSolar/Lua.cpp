@@ -81,7 +81,10 @@ void Lua::Draw(float planetaX, float planetaY, float planetaZ)
 		glTranslatef(x, 0, z);
 		angle += 0.1;
 
+
+
 	}
+	
 	//rotacao
 	glRotatef(-20, 0.0, 0.0, 1.0);
 	glRotatef(spin, 0.0, 1.0, 0.0);
@@ -103,8 +106,8 @@ void Lua::DrawOrbit(float x, float y, float z, GLfloat radius)
 		for (float i = 0; i<(3.14 * 4); i += 3.14 / 180)
 
 		{
-			x = (sin(i)*distanceToPlanet);
-			z = (cos(i)*distanceToPlanet);
+			x = (sin(i)*distanceToPlanet );
+			z = (cos(i)*distanceToPlanet );
 			glVertex3f(x, 0, z);
 		}
 

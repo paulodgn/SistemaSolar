@@ -13,7 +13,8 @@ public:
 	void AddMoon(float distanceToPlanet);
 	void Input(unsigned char key);
 	int material;
-	float numberOfMoonns;
+	float numberOfMoons;
+	
 
 private:
 	double radius;

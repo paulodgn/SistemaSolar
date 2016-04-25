@@ -184,19 +184,21 @@ void CreatePlanetas()
 	
 	sol.CreatePlaneta(2,3,true,0,0, "images/sun.tga");
 	
-	mercurio.CreatePlaneta(0.5,0, true, 0.03,5, "images/mercury.tga");
-	venus.CreatePlaneta(1.24,0, true, 0.06,9.34 , "images/venus.tga");
-	terra.CreatePlaneta(1.3,0, true, 0.05, 12.92, "images/earth.tga");
-	//terra.AddMoon(0);
-	terra.AddMoon(2);
+	mercurio.CreatePlaneta(0.25,0, true, 0.05,5, "images/mercury.tga");
+	venus.CreatePlaneta(0.62,0, true, 0.03,9.34 , "images/venus.tga");
+	terra.CreatePlaneta(0.65,0, true, 0.02, 12.92, "images/earth.tga");
+	terra.AddMoon(0);
+	//terra.AddMoon(30);
+	///terra.AddMoon(3);
 	
-	marte.CreatePlaneta(0.7,0,true,0.08, 19.68, "images/mars.tga");
+	marte.CreatePlaneta(0.35,0,true,0.009, 19.68, "images/mars.tga");
 	marte.AddMoon(2);
+	marte.AddMoon(2.2);
 
-	jupiter.CreatePlaneta(3.66,0, true, 0.04,67.2, "images/jupiter.tga");
-	saturno.CreatePlaneta(3.09,0, true, 0.09,123.42, "images/saturn.tga");
-	uranus.CreatePlaneta(1.31,0, true, 0.07, 247.89, "images/uranus.tga");
-	neptuno.CreatePlaneta(1.28,0, true, 0.03, 388.91, "images/neptune.tga");
+	jupiter.CreatePlaneta(1.83,0, true, 0.008,33.6, "images/jupiter.tga");
+	saturno.CreatePlaneta(1.545,0, true, 0.005,61.71, "images/saturn.tga");
+	uranus.CreatePlaneta(0.66,0, true, 0.002, 123.945, "images/uranus.tga");
+	neptuno.CreatePlaneta(0.64,0, true, 0.001, 194.455, "images/neptune.tga");
 	
 }
 
@@ -207,9 +209,9 @@ void DrawPlanetas()
 	applymaterial(0);
 	mercurio.Draw();
 	venus.Draw();
-	
-	marte.Draw();
 	terra.Draw();
+	marte.Draw();
+	
 
 	
 	jupiter.Draw();

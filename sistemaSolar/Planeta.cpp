@@ -16,6 +16,7 @@ Lua lua;
 unsigned char key;
 bool visible = false;
 
+
 //construtor
 void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
@@ -28,9 +29,10 @@ void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit, float vel
 		this->y = 0;
 		this->z = 0;
 		this->angle = 0;
-		this->numberOfMoonns = 0;
+		this->numberOfMoons = 0;
 		this->orbitSpeedInc = 1.5;
 		load_tga_image();
+		
 		
 		
 		
@@ -79,8 +81,9 @@ void Planeta::AddMoon(float distaceToPlanet)
 {
 	glPushMatrix();
 	
-	lua.CreateLua(0.2, true, 0.02, distaceToPlanet, "images/moon.tga");
-	numberOfMoonns++;
+	lua.CreateLua(0.08, true, 0.02, distaceToPlanet, "images/moon.tga");
+	numberOfMoons++;
+	
 	glPopMatrix();
 
 
@@ -134,13 +137,18 @@ void Planeta::Draw()
 
 		glPushMatrix();
 		//atualização das luas
-		for (float i = 0; i < numberOfMoonns; i++)
+		for (float i = 0; i < numberOfMoons; i++)
 		{
-			lua.Draw(this->x + i, this->y, this->z + i);
+			lua.Draw(this->x, this->y, this->z );
 			lua.Update();
-			glTranslatef(this->x + i, this->y, this->z + i);
-			lua.DrawOrbit(this->x + i, this->y, this->z + i, distanceToSun * i);
-
+			glTranslatef(this->x , this->y, this->z );
+			
+			lua.DrawOrbit(this->x, this->y, this->z, distanceToSun);
+			glScalef(1.1, 1.1,1.1);
+			this->x = 0 ;
+			this->z = 0 ;
+			
+			
 		}
 		glPopMatrix();
 
