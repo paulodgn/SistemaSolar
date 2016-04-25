@@ -130,14 +130,11 @@ void Planeta::Draw()
 		//desenhar orbita em torno ddo sol
 		glPushMatrix();
 		DrawOrbit(x,y,z,distanceToSun+radius/2);
-<<<<<<< HEAD
 
-		
-=======
 		glPopMatrix();
 
 		glPushMatrix();
->>>>>>> a8684d00855621198bdbe1b06ba37219f6125d50
+
 		//atualização das luas
 		for (float i = 0; i < numberOfMoonns; i++)
 		{
