@@ -17,7 +17,7 @@ unsigned char key;
 bool visible = false;
 
 //construtor
-void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit,float numberOfMoons, float velocidadeOrbita, float distanceToSun, char imagePath[255])
+void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit, float velocidadeOrbita, float distanceToSun, char imagePath[255])
 	{
 		this->radius = radius;
 		this->distanceToSun = distanceToSun;
@@ -28,12 +28,11 @@ void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit,float numb
 		this->y = 0;
 		this->z = 0;
 		this->angle = 0;
-		this->numberOfMoons = numberOfMoons;
+		this->numberOfMoonns = 0;
 		this->orbitSpeedInc = 1.5;
 		load_tga_image();
 		
-		if (numberOfMoons>0)
-			AddMoon();
+		
 		
 	}
 //load texture do planeta
@@ -76,17 +75,15 @@ void Planeta::load_tga_image()
 	}
 
 //criar lua no planeta
-void Planeta::AddMoon()
+void Planeta::AddMoon(float distaceToPlanet)
 {
-	for (float i = 0; i <= numberOfMoons; i++)
-	{
-		lua.CreateLua(0.2, true, 0.2, 1.95, "images/moon.tga");
-
-		lua.CreateLua(0.2, true, 0.2, 3, "images/moon.tga");
-
-	}
-
+	glPushMatrix();
 	
+	lua.CreateLua(0.2, true, 0.02, distaceToPlanet, "images/moon.tga");
+	numberOfMoonns++;
+	glPopMatrix();
+
+
 }
 
 
@@ -95,6 +92,7 @@ void Planeta::AddMoon()
 //desenhar planeta
 void Planeta::Draw()
 	{
+	
 	
 	
 	
@@ -130,16 +128,22 @@ void Planeta::Draw()
 
 		glPopMatrix();
 		//desenhar orbita em torno ddo sol
+		glPushMatrix();
 		DrawOrbit(x,y,z,distanceToSun+radius/2);
+		glPopMatrix();
+
+		glPushMatrix();
 		//atualização das luas
-		for (float i = 0; i < numberOfMoons; i++)
+		for (float i = 0; i < numberOfMoonns; i++)
 		{
-			lua.Draw(this->x, this->y, this->z);
+			lua.Draw(this->x + i, this->y, this->z + i);
 			lua.Update();
-			glTranslatef(this->x, this->y, this->z);
-			lua.DrawOrbit(this->x, this->y, this->z, distanceToSun-10);
+			glTranslatef(this->x + i, this->y, this->z + i);
+			lua.DrawOrbit(this->x + i, this->y, this->z + i, distanceToSun * i);
 
 		}
+		glPopMatrix();
+
 		/*if (numberOfMoons>0)
 		{
 			
