@@ -187,17 +187,21 @@ void CreatePlanetas()
 	//todos os outros raios são calculados atravez deste ultimo 
 	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
 	
-	sol.CreatePlaneta(2,3,true,0,0, 0, "images/sun.tga");
+	sol.CreatePlaneta(2,3,true,0,0, "images/sun.tga");
 	
-	mercurio.CreatePlaneta(0.5,0, true, 0, 0.03,5, "images/mercury.tga");
-	venus.CreatePlaneta(1.24,0, true, 0, 0.06,9.34 , "images/venus.tga");
-	terra.CreatePlaneta(1.3,0, true, 1, 0.05, 12.92, "images/earth.tga");
+	mercurio.CreatePlaneta(0.5,0, true, 0.03,5, "images/mercury.tga");
+	venus.CreatePlaneta(1.24,0, true, 0.06,9.34 , "images/venus.tga");
+	terra.CreatePlaneta(1.3,0, true, 0.05, 12.92, "images/earth.tga");
+	//terra.AddMoon(0);
+	terra.AddMoon(2);
+	
+	marte.CreatePlaneta(0.7,0,true,0.08, 19.68, "images/mars.tga");
+	marte.AddMoon(2);
 
-	marte.CreatePlaneta(0.7,0,true,0,0.08, 19.68, "images/mars.tga");
-	jupiter.CreatePlaneta(3.66,0, true, 0, 0.04,67.2, "images/jupiter.tga");
-	saturno.CreatePlaneta(3.09,0, true, 0, 0.09,123.42, "images/saturn.tga");
-	uranus.CreatePlaneta(1.31,0, true, 0, 0.07, 247.89, "images/uranus.tga");
-	neptuno.CreatePlaneta(1.28,0, true, 0, 0.03, 388.91, "images/neptune.tga");
+	jupiter.CreatePlaneta(3.66,0, true, 0.04,67.2, "images/jupiter.tga");
+	saturno.CreatePlaneta(3.09,0, true, 0.09,123.42, "images/saturn.tga");
+	uranus.CreatePlaneta(1.31,0, true, 0.07, 247.89, "images/uranus.tga");
+	neptuno.CreatePlaneta(1.28,0, true, 0.03, 388.91, "images/neptune.tga");
 	
 }
 
@@ -208,15 +212,17 @@ void DrawPlanetas()
 	applymaterial(0);
 	mercurio.Draw();
 	venus.Draw();
-	marte.Draw();
 	
+	marte.Draw();
+	terra.Draw();
 
 	
 	jupiter.Draw();
 	saturno.Draw();
 	uranus.Draw();
 	neptuno.Draw();
-	terra.Draw();
+	
+
 	
 }
 
