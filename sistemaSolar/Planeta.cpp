@@ -12,7 +12,7 @@ tgaInfo *im;
 GLUquadric *mysolid;
 GLfloat spin = 0.05;
 
-Lua lua;
+Lua lua[10];
 unsigned char key;
 bool visible = false;
 
@@ -81,7 +81,7 @@ void Planeta::AddMoon(float distaceToPlanet)
 {
 	glPushMatrix();
 	
-	lua.CreateLua(0.08, true, 0.02, distaceToPlanet, "images/moon.tga");
+	lua[numberOfMoons].CreateLua(0.08, true, 0.02, distaceToPlanet, "images/moon.tga");
 	numberOfMoons++;
 	
 	glPopMatrix();
@@ -139,14 +139,14 @@ void Planeta::Draw()
 		glPushMatrix();
 
 		//atualização das luas
-		for (float i = 0; i < numberOfMoons; i++)
+		for (int i = 0; i < numberOfMoons; i++)
 		{
-			lua.Draw(this->x, this->y, this->z );
-			lua.Update();
+			lua[i].Draw(this->x, this->y, this->z );
+			lua[i].Update();
 			glTranslatef(this->x , this->y, this->z );
 			
-			lua.DrawOrbit(this->x, this->y, this->z, distanceToSun);
-			glScalef(1.1, 1.1,1.1);
+			lua[i].DrawOrbit(this->x, this->y, this->z, distanceToSun);
+			//glScalef(1.1, 1.1,1.1);
 			this->x = 0 ;
 			this->z = 0 ;
 			
@@ -185,13 +185,21 @@ void Planeta::Input(unsigned char key)
 	if (key=='1')
 	{
 		visible = true;
-		lua.visible = true;
+		for (int i = 0; i < numberOfMoons; i++)
+		{
+			lua[i].visible = true;
+		}
+		
 		
 	}
 	if (key == '2')
 	{
 		visible = false;
-		lua.visible = false;
+		for (int i = 0; i < numberOfMoons; i++)
+		{
+			lua[i].visible = false;
+		}
+		
 	}
 
 	

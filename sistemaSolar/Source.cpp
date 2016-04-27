@@ -193,8 +193,11 @@ void CreatePlanetas()
 	venus.CreatePlaneta(0.62,0, true, 0.03,9.34 , "images/venus.tga");
 	terra.CreatePlaneta(0.65,0, true, 0.02, 12.92, "images/earth.tga");
 	terra.AddMoon(0);
-	//terra.AddMoon(30);
-	///terra.AddMoon(3);
+	terra.AddMoon(30);
+	terra.AddMoon(3);
+	terra.AddMoon(4);
+	terra.AddMoon(6);
+
 	
 	marte.CreatePlaneta(0.35,0,true,0.009, 19.68, "images/mars.tga");
 	marte.AddMoon(2);

@@ -9,11 +9,12 @@ public:
 	float getX();
 	float getY();
 	float getZ();
+	
 	void DrawOrbit(float x, float y, float z, GLint radius);
 	void AddMoon(float distanceToPlanet);
 	void Input(unsigned char key);
 	int material;
-	float numberOfMoons;
+	int numberOfMoons;
 	
 
 private:
