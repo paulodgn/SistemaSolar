@@ -7,6 +7,7 @@
 #include "Lua.h"
 
 
+
 tgaInfo *im;
 
 GLUquadric *mysolid;
@@ -15,6 +16,8 @@ GLfloat spin = 0.05;
 Lua lua[10];
 unsigned char key;
 bool visible = false;
+
+
 
 
 //construtor

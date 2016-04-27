@@ -2,6 +2,7 @@
 class Lua
 {
 public:
+	
 	float x, y, z, planetX, planetY, planetZ;
 	float distanceToPlanet;
 	float radius;

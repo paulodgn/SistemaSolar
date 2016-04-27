@@ -144,7 +144,7 @@ void Camera::MouseButton(int button, int state, int xr, int yr)
 		// quanto botao é largado
 		if (state == GLUT_UP) {
 			camAngle += deltaAngle;
-			camAngle += deltaAngleY;
+			camAngleY += deltaAngleY;
 			xOrigin = -1;
 			yOrigin = -1;
 		}
