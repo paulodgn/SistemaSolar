@@ -13,7 +13,7 @@
 #include "Skybox.h"
 #include <list>
 
-
+#define GAP  25             /* gap between subwindows */  
 
 
 // Protótipos de funções
@@ -35,6 +35,11 @@ std::list<Planeta> listaPlanetas;
 Camera freeCamera;
 float xOrigin;
 Skybox skybox;
+
+GLuint window, subWindow, View2, View3, View4;
+GLuint sub_width = 256, sub_height = 256;
+
+Lua luas[50]; 
 
 void init(void)
 {
@@ -154,6 +159,20 @@ void reshape(GLsizei w, GLsizei h)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	sub_width = 256;
+	sub_height = 256;
+
+	//View1 Display  
+	glutSetWindow(subWindow);
+	glutPositionWindow(GAP, GAP);
+	glutReshapeWindow(sub_width, sub_height);
+
+	//View2 Display  
+	/*glutSetWindow(View2);
+	glutPositionWindow(GAP + sub_width + GAP, GAP);
+	glutReshapeWindow(sub_width, sub_height);*/
+
 	glTranslatef(0.0, 0.0, -10.0);
 }
 
@@ -192,9 +211,10 @@ void CreatePlanetas()
 	mercurio.CreatePlaneta(0.25,0, true, 0.05,5, "images/mercury.tga");
 	venus.CreatePlaneta(0.62,0, true, 0.03,9.34 , "images/venus.tga");
 	terra.CreatePlaneta(0.65,0, true, 0.02, 12.92, "images/earth.tga");
-	terra.AddMoon(0);
+	//terra.AddMoon(0);
 	//terra.AddMoon(30);
 	///terra.AddMoon(3);
+	
 	
 	marte.CreatePlaneta(0.35,0,true,0.009, 19.68, "images/mars.tga");
 	marte.AddMoon(2);
@@ -247,8 +267,8 @@ void UpdatePlanetas()
 
 void display(void)
 {
-
-
+	glutSetWindow(window);
+	
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
@@ -302,6 +322,55 @@ void mouseButton(int button, int state, int x, int y)
 
 }
 
+
+
+void DrawScene()
+{
+
+
+	glutSetWindow(subWindow);
+	
+	
+
+	
+}
+
+//View1Display  
+void View1Display(){
+
+
+	//viewport rest;  
+	init();
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 1.0, 1.0);
+	glPushMatrix();
+	//gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	DrawScene();
+
+
+	glPopMatrix();
+	glutSwapBuffers();
+	
+}
+
+//View2Display  
+void View2Display(){
+
+	//viewport rest;  
+	init();
+
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 1.0, 1.0);
+	glPushMatrix();
+	gluLookAt(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	//DrawScene();
+
+
+	glPopMatrix();
+	glutSwapBuffers();
+}
+
 int main(int argc, char** argv)
 {
 	
@@ -316,29 +385,35 @@ int main(int argc, char** argv)
 	// Cria a janela de visualização
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(width - 14, height - 76);
-	glutCreateWindow("Programa-25");
+	//glutCreateWindow("Programa-25");
 
-
-	
+	window = glutCreateWindow("ViewPort Test");
 	
 	// Inicializações
 	init();
 	initLights();
 	CreatePlanetas();
-	//load_tga_image();
-	
-	
 
-	
+	glutReshapeFunc(reshape);
+	glutIdleFunc(display);//display
+	glutDisplayFunc(display);
 	// Registar funções de callback
 	glutKeyboardFunc(Input);
 	//glutKeyboardFunc(UpdateOrbitaSpeed);
-	
-	glutDisplayFunc(display);
-	glutReshapeFunc(reshape);
-	glutIdleFunc(display);//display
+
+	//glutDisplayFunc(display);
+
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMove);
+
+	//World Window and Display  
+	subWindow = glutCreateSubWindow(window, GAP, GAP, sub_width, sub_height);
+	glutDisplayFunc(DrawScene);
+	//glutSetWindow(window);
+
+	
+		
+
 
 	// Ciclo infinito do GLUT
 	glutMainLoop();

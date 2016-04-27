@@ -1,3 +1,4 @@
+
 class Planeta
 {
 public:
@@ -26,7 +27,7 @@ private:
 	GLuint texture;
 	float angle;
 	float orbitSpeedInc;
-
+	
 
 };
 
