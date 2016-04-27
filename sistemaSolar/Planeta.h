@@ -12,7 +12,7 @@ public:
 	float getZ();
 	
 	void DrawOrbit(float x, float y, float z, GLint radius);
-	void AddMoon(float distanceToPlanet);
+	void AddMoon(float radius, bool hasOrbit, float velocidadeOrbita, float distaceToPlanet);
 	void Input(unsigned char key);
 	int material;
 	int numberOfMoons;

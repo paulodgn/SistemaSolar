@@ -80,11 +80,11 @@ void Planeta::load_tga_image()
 	}
 
 //criar lua no planeta
-void Planeta::AddMoon(float distaceToPlanet)
+void Planeta::AddMoon(float radius,bool hasOrbit,float velocidadeOrbita,float distaceToPlanet)
 {
 	glPushMatrix();
 	
-	lua[numberOfMoons].CreateLua(0.08, true, 0.02, distaceToPlanet, "images/moon.tga");
+	lua[numberOfMoons].CreateLua(radius, hasOrbit, velocidadeOrbita, distaceToPlanet, "images/moon.tga");
 	numberOfMoons++;
 	
 	glPopMatrix();
