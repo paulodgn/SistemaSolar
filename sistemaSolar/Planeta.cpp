@@ -160,17 +160,7 @@ void Planeta::Draw()
 		}
 		glPopMatrix();
 
-		/*if (numberOfMoons>0)
-		{
-			
-			lua.Draw(this->x,this->y, this->z);
-			lua.Update();
-			glTranslatef(this->x, this->y, this->z);
-			lua.DrawOrbit(this->x, this->y, this->z, distanceToSun);
-			
-			
-		}
-		*/
+
 		glDisable(GL_TEXTURE_2D);
 		
 		
