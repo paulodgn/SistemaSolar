@@ -157,9 +157,9 @@ void CreatePlanetas()
 
 	terra.AddMoon(0.099, true, 0.1, 1.37,3);
 
-	marte.CreatePlaneta(0.2, 0, true, 0.09, 19 + raioDoSol, "images/mars.tga", 4);
-	marte.AddMoon(0.09, true, 0.35, 0.7,4);
-	marte.AddMoon(0.06, true, 0.35, 1.2, 4);
+	marte.CreatePlaneta(0.2, 0, true, 0.01, 19 + raioDoSol, "images/mars.tga", 4);
+	marte.AddMoon(0.09, true, 0.2, 0.7,4);
+	marte.AddMoon(0.06, true, 0.15, 1.2, 4);
 
 	jupiter.CreatePlaneta(2, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
 	saturno.CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
