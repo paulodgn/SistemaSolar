@@ -21,6 +21,7 @@ void init(void);
 void display(void);
 void reshape(GLsizei w, GLsizei h);
 void load_tga_image(void);
+void reshapeSubWindow(GLsizei w2, GLsizei h2);
 
 
 // Variáveis globais
@@ -36,8 +37,8 @@ Camera freeCamera;
 float xOrigin;
 Skybox skybox;
 
-GLuint window, subWindow, View2, View3, View4;
-GLuint sub_width = 256, sub_height = 256;
+GLuint window, subWindow;
+GLuint subWindow_width, subWindow_height;
 
 Lua luas[50]; 
 
@@ -49,8 +50,7 @@ void init(void)
 	// Activa o teste de profundidade
 	glEnable(GL_DEPTH_TEST);
 
-	skybox.CreateSkybox();
-	freeCamera.InitCamera();
+	
 }
 
 void initLights(void)
@@ -151,32 +151,28 @@ void applylights(void)
 }
 void reshape(GLsizei w, GLsizei h)
 {
-	glViewport(0, 0, width, height);
+	//main window
+	glViewport(0, 0, w, h);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(60.0, (GLfloat)w / (GLfloat)h, 0.5, 1000.0);
-
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	
-	sub_width = 256;
-	sub_height = 256;
+	subWindow_width = 256;
+	subWindow_height = 256;
 
-	//View1 Display  
+	//subwindow
 	glutSetWindow(subWindow);
 	glutPositionWindow(25, 25);
-	glutReshapeWindow(sub_width, sub_height);
-
+	glutReshapeWindow(subWindow_width, subWindow_height);
 	
-	//View2 Display  
-	/*glutSetWindow(View2);
-	glutPositionWindow(GAP + sub_width + GAP, GAP);
-	glutReshapeWindow(sub_width, sub_height);*/
-
-	//glTranslatef(0.0, 0.0, -10.0);
+	
 }
+
+
 
 void applymaterial(int type)
 {
@@ -328,66 +324,33 @@ void mouseButton(int button, int state, int x, int y)
 
 
 
-void DrawScene()
+void renderSubWindow()
 {
+	glutSetWindow(subWindow);
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-2.0, 2.0, -2.0, 2.0, 0.5, 5.0);
-	
+	gluPerspective(60.0, (GLfloat)subWindow_width / (GLfloat)subWindow_height, 0.5, 1000.0);
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1.0, 1.0, 1.0);
-	glPushMatrix();
-	gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	
 
-	applylights();
-	skybox.Draw();
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(0.0, 0.0, 0.0);
+	gluLookAt(0.0, 20.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	//glutWireTeapot(1);
 	DrawPlanetas();
 	UpdatePlanetas();
-
-
+	
 	glPopMatrix();
+
 	glutSwapBuffers();
 	
 }
 
-//View1Display  
-void View1Display(){
-
-
-	//viewport rest;  
-	init();
-
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1.0, 1.0, 1.0);
-	glPushMatrix();
-	//gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	DrawScene();
-
-
-	glPopMatrix();
-	glutSwapBuffers();
-	
-}
-
-//View2Display  
-void View2Display(){
-
-	//viewport rest;  
-	init();
-
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(1.0, 1.0, 1.0);
-	glPushMatrix();
-	gluLookAt(1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	//DrawScene();
-
-
-	glPopMatrix();
-	glutSwapBuffers();
+void renderAll()
+{
+	display();
+	renderSubWindow();
 }
 
 int main(int argc, char** argv)
@@ -407,28 +370,26 @@ int main(int argc, char** argv)
 	//glutCreateWindow("Programa-25");
 
 	window = glutCreateWindow("ViewPort Test");
-	
+	glutDisplayFunc(display);
 	// Inicializações
 	init();
 	initLights();
+	skybox.CreateSkybox();
+	freeCamera.InitCamera();
 	CreatePlanetas();
-
-	glutReshapeFunc(reshape);
-	glutIdleFunc(display);
-	glutDisplayFunc(display);
 	// Registar funções de callback
+	glutReshapeFunc(reshape);
+	glutIdleFunc(renderAll);
+	//teclado
 	glutKeyboardFunc(Input);
-	//glutKeyboardFunc(UpdateOrbitaSpeed);
-
-	//glutDisplayFunc(display);
-
+	//mouse
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMove);
 
-	//World Window and Display  
-	subWindow = glutCreateSubWindow(window, 25, 25, sub_width, sub_height);
-	glutDisplayFunc(DrawScene);
-	
+	//subjanela
+	subWindow = glutCreateSubWindow(window, 25, 25, subWindow_width, subWindow_height);
+	glutDisplayFunc(renderSubWindow);
+
 	
 	
 	
