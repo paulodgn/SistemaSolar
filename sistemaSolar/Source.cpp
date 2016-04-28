@@ -27,6 +27,8 @@ void reshapeSubWindow(GLsizei w2, GLsizei h2);
 
 int width, height;
 float solX=0, solY=0, solZ=0;
+float raioDoSol;
+
 Planeta sol,mercurio,venus, terra, marte, jupiter, saturno, uranus, neptuno;
 std::list<Planeta> listaPlanetas;
 Camera freeCamera;
@@ -131,6 +133,7 @@ void applymaterial(int type)
 
 void CreatePlanetas()
 {
+	
 	//sol, mercurio, venus, terra, marte, jupiter, saturno, uranus, neptuno;
 	//distancias à escala
 	//distancia original de mercurio ao sol corresponde a 5 unidades
@@ -139,11 +142,11 @@ void CreatePlanetas()
 	//todos os outros raios são calculados atravez deste ultimo 
 	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
 	
-	sol.CreatePlaneta(2,3,true,0,0, "images/sun.tga",0);
+	sol.CreatePlaneta(raioDoSol, 3, true, 0, 0, "images/sun.tga", 0);
 	
-	mercurio.CreatePlaneta(0.25,0, true, 0.05,5, "images/mercury.tga",1);
-	venus.CreatePlaneta(0.62,0, true, 0.03,9 , "images/venus.tga",2);
-	terra.CreatePlaneta(0.65,0, true, 0.02, 12.92, "images/earth.tga",3);
+	mercurio.CreatePlaneta(0.25, 0, true, 0.05, 5 + raioDoSol, "images/mercury.tga", 1);
+	venus.CreatePlaneta(0.62, 0, true, 0.03, 9 + raioDoSol, "images/venus.tga", 2);
+	terra.CreatePlaneta(0.65, 0, true, 0.02, 12.92 + raioDoSol, "images/earth.tga", 3);
 
 	terra.AddMoon(0.4, true, 0.1, 4,3);
 	terra.AddMoon(0.4, true, 0.5, 5,3);
@@ -151,14 +154,14 @@ void CreatePlanetas()
 	
 	
 	
-	marte.CreatePlaneta(0.35,0,true,0.09, 19, "images/mars.tga",4);
+	marte.CreatePlaneta(0.35, 0, true, 0.09, 19 + raioDoSol, "images/mars.tga", 4);
 	marte.AddMoon(0.3, true, 0.35, 6,4);
 	marte.AddMoon(0.3, true, 0.35, 3, 4);
 
-	jupiter.CreatePlaneta(1.83,0, true, 0.008,33.6, "images/jupiter.tga",5);
-	saturno.CreatePlaneta(1.545,0, true, 0.005,61.71, "images/saturn.tga",6);
-	uranus.CreatePlaneta(0.66,0, true, 0.002, 123.945, "images/uranus.tga",7);
-	neptuno.CreatePlaneta(0.64,0, true, 0.001, 194.455, "images/neptune.tga",8);
+	jupiter.CreatePlaneta(1.83, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
+	saturno.CreatePlaneta(1.545, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
+	uranus.CreatePlaneta(0.66, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
+	neptuno.CreatePlaneta(0.64, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
 	
 }
 
@@ -311,6 +314,7 @@ int main(int argc, char** argv)
 	// Inicialização do GLUT
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA);
+	raioDoSol = 4.0f;
 
 	width = glutGet(GLUT_SCREEN_WIDTH);
 	height = glutGet(GLUT_SCREEN_HEIGHT);
@@ -338,8 +342,11 @@ int main(int argc, char** argv)
 	glutMotionFunc(mouseMove);
 
 	//subjanela
+
 	subWindow = glutCreateSubWindow(window, 25, 25, subWindow_width, subWindow_height);
+
 	glutDisplayFunc(renderSubWindow);
+
 
 	
 	
