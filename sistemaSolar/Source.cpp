@@ -332,12 +332,14 @@ void renderSubWindow()
 	glLoadIdentity();
 	gluPerspective(60.0, (GLfloat)subWindow_width / (GLfloat)subWindow_height, 0.5, 1000.0);
 	glMatrixMode(GL_MODELVIEW);
+	
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
-	glLoadIdentity();
-	glTranslatef(0.0, 0.0, 0.0);
+
 	gluLookAt(0.0, 20.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	//glutWireTeapot(1);
+	
 	DrawPlanetas();
 	UpdatePlanetas();
 	
