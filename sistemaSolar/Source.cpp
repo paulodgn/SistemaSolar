@@ -141,27 +141,30 @@ void CreatePlanetas()
 	//raio original de mercurio corresponde a 0.5 unidades
 	//todos os outros raios são calculados atravez deste ultimo 
 	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
+
+
+	//raio dos plantas calculado em relação ao raio do sol
+	// 6957000km corresponde a 4 unidades
+	//com esta razão é calculado o raio de mercurio venos terra marte e lua e o resultado é multiplicado por 100
+	//jupiter saturno urano e neptuno seguem a mesma logica mas o resultado é multiplicad por 50
+
 	
 	sol.CreatePlaneta(raioDoSol, 3, true, 0, 0, "images/sun.tga", 0);
 	
-	mercurio.CreatePlaneta(0.25, 0, true, 0.05, 5 + raioDoSol, "images/mercury.tga", 1);
-	venus.CreatePlaneta(0.62, 0, true, 0.03, 9 + raioDoSol, "images/venus.tga", 2);
-	terra.CreatePlaneta(0.65, 0, true, 0.02, 12.92 + raioDoSol, "images/earth.tga", 3);
+	mercurio.CreatePlaneta(0.14, 0, true, 0.05, 5 + raioDoSol, "images/mercury.tga", 1);
+	venus.CreatePlaneta(0.35, 0, true, 0.03, 9 + raioDoSol, "images/venus.tga", 2);
+	terra.CreatePlaneta(0.37, 0, true, 0.02, 12.92 + raioDoSol, "images/earth.tga", 3);
 
-	terra.AddMoon(0.4, true, 0.1, 4,3);
-	terra.AddMoon(0.4, true, 0.5, 5,3);
-	terra.AddMoon(0.4, true, 0.7, 6,3);
-	
-	
-	
-	marte.CreatePlaneta(0.35, 0, true, 0.09, 19 + raioDoSol, "images/mars.tga", 4);
-	marte.AddMoon(0.3, true, 0.35, 6,4);
-	marte.AddMoon(0.3, true, 0.35, 3, 4);
+	terra.AddMoon(0.099, true, 0.1, 1.37,3);
 
-	jupiter.CreatePlaneta(1.83, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
-	saturno.CreatePlaneta(1.545, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
-	uranus.CreatePlaneta(0.66, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
-	neptuno.CreatePlaneta(0.64, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
+	marte.CreatePlaneta(0.2, 0, true, 0.09, 19 + raioDoSol, "images/mars.tga", 4);
+	marte.AddMoon(0.09, true, 0.35, 0.7,4);
+	marte.AddMoon(0.06, true, 0.35, 1.2, 4);
+
+	jupiter.CreatePlaneta(2, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
+	saturno.CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
+	uranus.CreatePlaneta(0.78, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
+	neptuno.CreatePlaneta(0.7, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
 	
 }
 
