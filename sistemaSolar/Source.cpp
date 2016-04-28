@@ -13,7 +13,7 @@
 #include "Skybox.h"
 #include <list>
 
-#define GAP  25             /* gap between subwindows */  
+
 
 
 // Protótipos de funções
@@ -151,7 +151,7 @@ void applylights(void)
 }
 void reshape(GLsizei w, GLsizei h)
 {
-	glViewport(0, 0, w, h);
+	glViewport(0, 0, width, height);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -160,20 +160,22 @@ void reshape(GLsizei w, GLsizei h)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	
 	sub_width = 256;
 	sub_height = 256;
 
 	//View1 Display  
 	glutSetWindow(subWindow);
-	glutPositionWindow(GAP, GAP);
+	glutPositionWindow(25, 25);
 	glutReshapeWindow(sub_width, sub_height);
 
+	
 	//View2 Display  
 	/*glutSetWindow(View2);
 	glutPositionWindow(GAP + sub_width + GAP, GAP);
 	glutReshapeWindow(sub_width, sub_height);*/
 
-	glTranslatef(0.0, 0.0, -10.0);
+	//glTranslatef(0.0, 0.0, -10.0);
 }
 
 void applymaterial(int type)
@@ -323,16 +325,33 @@ void mouseButton(int button, int state, int x, int y)
 
 }
 
-
+void ResetViewport()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-2.0, 2.0, -2.0, 2.0, 0.5, 5.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
 
 void DrawScene()
 {
-
-
-	glutSetWindow(subWindow);
+	ResetViewport();
 	
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.0, 1.0, 1.0);
+	glPushMatrix();
+	gluLookAt(0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	
 
+	applylights();
+	skybox.Draw();
+	DrawPlanetas();
+	UpdatePlanetas();
+
+
+	glPopMatrix();
+	glutSwapBuffers();
 	
 }
 
@@ -396,7 +415,7 @@ int main(int argc, char** argv)
 	CreatePlanetas();
 
 	glutReshapeFunc(reshape);
-	glutIdleFunc(display);//display
+	glutIdleFunc(display);
 	glutDisplayFunc(display);
 	// Registar funções de callback
 	glutKeyboardFunc(Input);
@@ -408,10 +427,11 @@ int main(int argc, char** argv)
 	glutMotionFunc(mouseMove);
 
 	//World Window and Display  
-	subWindow = glutCreateSubWindow(window, GAP, GAP, sub_width, sub_height);
+	subWindow = glutCreateSubWindow(window, 25, 25, sub_width, sub_height);
 	glutDisplayFunc(DrawScene);
-	//glutSetWindow(window);
-
+	
+	
+	
 	
 		
 
