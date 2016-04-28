@@ -208,25 +208,26 @@ void CreatePlanetas()
 	//todos os outros raios são calculados atravez deste ultimo 
 	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
 	
-	sol.CreatePlaneta(2,3,true,0,0, "images/sun.tga");
+	sol.CreatePlaneta(2,3,true,0,0, "images/sun.tga",0);
 	
-	mercurio.CreatePlaneta(0.25,0, true, 0.05,5, "images/mercury.tga");
-	venus.CreatePlaneta(0.62,0, true, 0.03,9 , "images/venus.tga");
-	terra.CreatePlaneta(0.65,0, true, 0.02, 12.92, "images/earth.tga");
+	mercurio.CreatePlaneta(0.25,0, true, 0.05,5, "images/mercury.tga",1);
+	venus.CreatePlaneta(0.62,0, true, 0.03,9 , "images/venus.tga",2);
+	terra.CreatePlaneta(0.65,0, true, 0.02, 12.92, "images/earth.tga",3);
 
-	terra.AddMoon(0.2, true, 0.5, 2);
-	terra.AddMoon(0.4, true, 0.3, 3.9);
-	terra.AddMoon(0.1, true, 0.1, 4.7);
+	terra.AddMoon(0.4, true, 0.1, 4,3);
+	terra.AddMoon(0.4, true, 0.5, 5,3);
+	terra.AddMoon(0.4, true, 0.7, 6,3);
 	
 	
 	
-	marte.CreatePlaneta(0.35,0,true,0.009, 19, "images/mars.tga");
-	marte.AddMoon(0.2, true, 0.5, 2);
+	marte.CreatePlaneta(0.35,0,true,0.09, 19, "images/mars.tga",4);
+	marte.AddMoon(0.3, true, 0.35, 6,4);
+	marte.AddMoon(0.3, true, 0.35, 3, 4);
 
-	jupiter.CreatePlaneta(1.83,0, true, 0.008,33.6, "images/jupiter.tga");
-	saturno.CreatePlaneta(1.545,0, true, 0.005,61.71, "images/saturn.tga");
-	uranus.CreatePlaneta(0.66,0, true, 0.002, 123.945, "images/uranus.tga");
-	neptuno.CreatePlaneta(0.64,0, true, 0.001, 194.455, "images/neptune.tga");
+	jupiter.CreatePlaneta(1.83,0, true, 0.008,33.6, "images/jupiter.tga",5);
+	saturno.CreatePlaneta(1.545,0, true, 0.005,61.71, "images/saturn.tga",6);
+	uranus.CreatePlaneta(0.66,0, true, 0.002, 123.945, "images/uranus.tga",7);
+	neptuno.CreatePlaneta(0.64,0, true, 0.001, 194.455, "images/neptune.tga",8);
 	
 }
 
@@ -325,18 +326,16 @@ void mouseButton(int button, int state, int x, int y)
 
 }
 
-void ResetViewport()
+
+
+void DrawScene()
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-2.0, 2.0, -2.0, 2.0, 0.5, 5.0);
+	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-}
-
-void DrawScene()
-{
-	ResetViewport();
 	
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0, 1.0, 1.0);

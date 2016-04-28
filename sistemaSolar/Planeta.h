@@ -2,7 +2,7 @@
 class Planeta
 {
 public:
-	void CreatePlaneta(double radius,int material, bool rotate, float velocidadeOrbita, float distanceToSun, char imagePath[255]);
+	void CreatePlaneta(double radius,int material, bool rotate, float velocidadeOrbita, float distanceToSun, char imagePath[255], int id);
 	
 	void Draw();
 	void Update();
@@ -12,10 +12,11 @@ public:
 	float getZ();
 	
 	void DrawOrbit(float x, float y, float z, GLint radius);
-	void AddMoon(float radius, bool hasOrbit, float velocidadeOrbita, float distaceToPlanet);
+	void AddMoon(float radius, bool hasOrbit, float velocidadeOrbita, float distaceToPlanet, int indiceLuas);
 	void Input(unsigned char key);
 	int material;
-	int numberOfMoons;
+	//int numberOfMoons;
+	int id;
 	
 
 private:

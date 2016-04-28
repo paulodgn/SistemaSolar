@@ -19,12 +19,12 @@ public:
 
 
 
-	void CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float distanceToPlanet, char imagePath[255]);
+	void CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float distanceToPlanet, char imagePath[255], int idPlaneta);
 	void Draw(float planetaX, float planetaY, float planetaZ);
 	void Update();
 	void load_tga_image();
 	void DrawOrbit(float x, float y, float z, GLfloat radius);
-	
+	int idPlaneta;
 
 
 

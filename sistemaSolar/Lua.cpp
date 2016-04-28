@@ -12,7 +12,7 @@
 
 
 //construtor
-void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float distanceToPlanet, char imagePath[255])
+void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float distanceToPlanet, char imagePath[255], int idPlaneta)
 {
 	this->radius = radius;
 	this->distanceToPlanet = distanceToPlanet;
@@ -24,6 +24,7 @@ void Lua::CreateLua(float radius, bool hasOrbit, float velocidadeOrbita, float d
 	this->z = 0;
 	this->visible = false;
 	this->angle = 0;
+	this->idPlaneta = idPlaneta;
 	load_tga_image();
 	
 }

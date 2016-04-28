@@ -13,7 +13,8 @@ tgaInfo *im;
 GLUquadric *mysolid;
 GLfloat spin = 0.05;
 
-Lua lua[10];
+Lua lua[20];
+int numberOfMoons=0;
 unsigned char key;
 bool visible = false;
 
@@ -21,7 +22,7 @@ bool visible = false;
 
 
 //construtor
-void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit, float velocidadeOrbita, float distanceToSun, char imagePath[255])
+void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit, float velocidadeOrbita, float distanceToSun, char imagePath[255], int id)
 	{
 		this->radius = radius;
 		this->distanceToSun = distanceToSun;
@@ -32,10 +33,10 @@ void Planeta::CreatePlaneta(double radius,int material, bool hasOrbit, float vel
 		this->y = 0;
 		this->z = 0;
 		this->angle = 0;
-		this->numberOfMoons = 0;
+		//this->numberOfMoons = 0;
 		this->orbitSpeedInc = 1.5;
 		load_tga_image();
-		
+		this->id = id;
 		
 		
 		
@@ -80,11 +81,11 @@ void Planeta::load_tga_image()
 	}
 
 //criar lua no planeta
-void Planeta::AddMoon(float radius,bool hasOrbit,float velocidadeOrbita,float distaceToPlanet)
+void Planeta::AddMoon(float radius,bool hasOrbit,float velocidadeOrbita,float distaceToPlanet, int idPlaneta)
 {
 	glPushMatrix();
 	
-	lua[numberOfMoons].CreateLua(radius, hasOrbit, velocidadeOrbita, distaceToPlanet, "images/moon.tga");
+	lua[numberOfMoons].CreateLua(radius, hasOrbit, velocidadeOrbita, distaceToPlanet, "images/moon.tga", idPlaneta);
 	numberOfMoons++;
 	
 	glPopMatrix();
@@ -144,15 +145,17 @@ void Planeta::Draw()
 		//atualização das luas
 		for (int i = 0; i < numberOfMoons; i++)
 		{
-			lua[i].Draw(this->x, this->y, this->z );
-			lua[i].Update();
-			glTranslatef(this->x , this->y, this->z );
-			
-			lua[i].DrawOrbit(this->x, this->y, this->z, distanceToSun);
-			//glScalef(1.1, 1.1,1.1);
-			this->x = 0 ;
-			this->z = 0 ;
-			
+			if (lua[i].idPlaneta == this->id)
+			{
+				lua[i].Draw(this->x, this->y, this->z);
+				lua[i].Update();
+				glTranslatef(this->x, this->y, this->z);
+
+				lua[i].DrawOrbit(this->x, this->y, this->z, distanceToSun);
+				//glScalef(1.1, 1.1,1.1);
+				this->x = 0;
+				this->z = 0;
+			}
 			
 		}
 		glPopMatrix();
