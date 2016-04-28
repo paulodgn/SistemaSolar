@@ -337,9 +337,13 @@ void renderSubWindow()
 
 	glPushMatrix();
 
-	gluLookAt(0.0, 20.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	//glutWireTeapot(1);
-	
+	//gluLookAt(0.0, 50.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(freeCamera.x, 50, freeCamera.z-2, freeCamera.x, 0.0, freeCamera.z, 0.0, 1.0, 0.0);
+	glPushMatrix();
+	glTranslatef(freeCamera.x, freeCamera.y, freeCamera.z);
+	glutWireTeapot(0.5);
+	glPopMatrix();
+
 	DrawPlanetas();
 	UpdatePlanetas();
 	
