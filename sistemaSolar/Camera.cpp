@@ -11,7 +11,7 @@ enum cameraMode
 
 };
 
-float direcaoX=0, direcaoY=0,direcaoZ = 5;
+float direcaoX=0, direcaoY=0,direcaoZ = 10;
 cameraMode camMode;
 float deltaAngleY;
 
@@ -117,7 +117,7 @@ void Camera::Input(unsigned char key)
 
 
 
-//https://gist.github.com/23ars/4545671, codigo adaptado do algoritmo do link
+//https://gist.github.com/23ars/4545671, codigo adaptado do algoritmo dispononivel do link
 void Camera::MouseMove(int xr, int yr)
 {
 	
@@ -126,7 +126,7 @@ void Camera::MouseMove(int xr, int yr)
 		// update deltaAngle, diferença da posicao atual com a da origem
 		deltaAngle = (xr - xOrigin) * 0.001f;
 		deltaAngleY = (yr - yOrigin) * 0.001f;
-		// calculada nova direçao
+		// calculada novo vetor de direçao
 		direcaoX = sin(camAngle + deltaAngle);
 		direcaoY = -sin(camAngleY + deltaAngleY);
 		direcaoZ = -cos(camAngle + deltaAngle);

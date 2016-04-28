@@ -182,7 +182,7 @@ void DrawPlanetas()
 	uranus.Draw();
 	neptuno.Draw();
 	
-
+	
 	
 }
 
@@ -218,6 +218,7 @@ void display(void)
 	
 	//desenha e faz update aos planetas
 	skybox.Draw();
+	skybox.Update(freeCamera.x, freeCamera.y, freeCamera.z);
 	DrawPlanetas();
 	UpdatePlanetas();
 	
@@ -279,11 +280,10 @@ void renderSubWindow()
 
 	glLoadIdentity();
 	gluPerspective(60.0, (GLfloat)subWindow_width / (GLfloat)subWindow_height, 0.5, 1000.0);
-		
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	glPushMatrix();
-
+	
 	//gluLookAt(0.0, 50.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	gluLookAt(freeCamera.x, 50, freeCamera.z-2, freeCamera.x, 0.0, freeCamera.z, 0.0, 1.0, 0.0);
 	//desenha teapot na posicao da camara
