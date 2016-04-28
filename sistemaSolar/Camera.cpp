@@ -167,13 +167,13 @@ void Camera::Update()
 	}
 	if (camMode == orbit)
 	{
-		x = distanceToSun * cos(angle*velocidadeOrbita);
+		x = distanceToSun * cos(angle);
 		
-		z = distanceToSun * sin(angle*velocidadeOrbita);
+		z = distanceToSun * sin(angle);
 		
 		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 		
-		angle += 0.1;
+		angle += 0.1 * velocidadeOrbita;
 	}
 	
 	

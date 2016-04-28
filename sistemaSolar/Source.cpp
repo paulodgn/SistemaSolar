@@ -305,6 +305,16 @@ void Input(unsigned char key, int x, int y)
 	uranus.Input(key);
 	neptuno.Input(key);
 	
+	//janelas
+	if ((key == 'n') || (key == 'N')){
+		glutSetWindow(window);
+		glutReshapeWindow(width - 14, height - 76);
+		glutPositionWindow(0, 0);
+	}
+	if ((key == 'm') || (key == 'M')){
+		glutSetWindow(window);
+		glutFullScreen();
+	}
 	
 }
 
@@ -328,17 +338,17 @@ void renderSubWindow()
 {
 	glutSetWindow(subWindow);
 	
-	glMatrixMode(GL_PROJECTION);
+
 	glLoadIdentity();
 	gluPerspective(60.0, (GLfloat)subWindow_width / (GLfloat)subWindow_height, 0.5, 1000.0);
-	glMatrixMode(GL_MODELVIEW);
-	
+		
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
 
 	//gluLookAt(0.0, 50.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	gluLookAt(freeCamera.x, 50, freeCamera.z-2, freeCamera.x, 0.0, freeCamera.z, 0.0, 1.0, 0.0);
+	//desenha teapot na posicao da camara
 	glPushMatrix();
 	glTranslatef(freeCamera.x, freeCamera.y, freeCamera.z);
 	glutWireTeapot(0.5);
