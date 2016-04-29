@@ -13,7 +13,7 @@ tgaInfo *im;
 GLUquadric *mysolid;
 GLfloat spin = 0.05;
 
-Lua lua[20];
+Lua lua[30];
 int numberOfMoons=0;
 unsigned char key;
 bool visible = false;
@@ -205,7 +205,7 @@ void Planeta::Update()
 {
 	
 	//rotacao planeta
-	spin = spin + 0.1* velocidadeOrbita;
+	spin = spin + 0.1;
 	if (spin > 360.0)
 	{
 		spin = spin - 360.0 ;

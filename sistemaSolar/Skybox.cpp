@@ -15,9 +15,9 @@ GLuint texture[6];
 void Skybox::CreateSkybox()
 {
 	load_tga_image();
-	this->cX = 200;
-	this->cY = 200;
-	this->cZ = 200;
+	this->cX = 250;
+	this->cY = 250;
+	this->cZ = 250;
 	
 }
 

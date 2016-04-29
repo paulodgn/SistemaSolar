@@ -55,10 +55,10 @@ void CreatePlanetas()
 	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
 
 
-	//raio dos plantas calculado em relação ao raio do sol
+	//raio dos planetas calculado em relação ao raio do sol
 	// 6957000km corresponde a 4 unidades
-	//com esta razão é calculado o raio de mercurio venos terra marte e lua e o resultado é multiplicado por 100
-	//jupiter saturno urano e neptuno seguem a mesma logica mas o resultado é multiplicad por 50
+	//com esta razão é calculado o raio de Mercurio Venus Terra Marte e Lua e o resultado é multiplicado por 100
+	//Jupiter Saturno Urano e Neptuno seguem a mesma logica mas o resultado é multiplicadO por 50
 
 
 	planetas[0].CreatePlaneta(raioDoSol, 3, true, 0, 0, "images/sun.tga", 0);
@@ -74,10 +74,20 @@ void CreatePlanetas()
 	planetas[4].AddMoon(0.06, true, 0.15, 1.2, 4);
 
 	planetas[5].CreatePlaneta(2, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
-	planetas[6].CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
-	planetas[7].CreatePlaneta(0.78, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
-	planetas[8].CreatePlaneta(0.7, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
+	planetas[5].AddMoon(0.02, true, 0.1, 2.2, 5);
+	planetas[5].AddMoon(0.01, true, 0.2, 2.35, 5);
+	planetas[5].AddMoon(0.03, true, 0.3, 2.43, 5);
 
+	planetas[6].CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
+	planetas[6].AddMoon(0.02, true, 0.1, 1.75, 6);
+	planetas[6].AddMoon(0.01, true, 0.2, 1.79, 6);
+	
+	
+	planetas[7].CreatePlaneta(0.78, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
+	planetas[7].AddMoon(0.04, true, 0.5, 0.8, 7);
+	
+	planetas[8].CreatePlaneta(0.7, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
+	planetas[8].AddMoon(0.02, true, 0.09, 0.78, 8);
 }
 
 void init(void)
