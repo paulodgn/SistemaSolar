@@ -116,9 +116,9 @@ void Planeta::Draw()
 		if (hasOrbit)
 		{
 			
-			x = distanceToSun * cos(angle);
+			x = distanceToSun * sin(angle);
 			y = 0;
-			z = distanceToSun * sin(angle);
+			z = distanceToSun * cos(angle);
 
 			glTranslatef(x, 0, z);
 			angle += 0.1 * velocidadeOrbita ;
