@@ -43,6 +43,43 @@ GLuint subWindow_width, subWindow_height;
 //Lua luas[50];
 Planeta planetas[numberOfPlanets];
 
+void CreatePlanetas()
+{
+
+	//sol, mercurio, venus, terra, marte, jupiter, saturno, uranus, neptuno;
+	//distancias à escala
+	//distancia original de mercurio ao sol corresponde a 5 unidades
+	//todas a distancias são calculadas com base na anterior
+	//raio original de mercurio corresponde a 0.5 unidades
+	//todos os outros raios são calculados atravez deste ultimo 
+	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
+
+
+	//raio dos plantas calculado em relação ao raio do sol
+	// 6957000km corresponde a 4 unidades
+	//com esta razão é calculado o raio de mercurio venos terra marte e lua e o resultado é multiplicado por 100
+	//jupiter saturno urano e neptuno seguem a mesma logica mas o resultado é multiplicad por 50
+
+
+	planetas[0].CreatePlaneta(raioDoSol, 3, true, 0, 0, "images/sun.tga", 0);
+
+	planetas[1].CreatePlaneta(0.14, 0, true, 0.05, 5 + raioDoSol, "images/mercury.tga", 1);
+	planetas[2].CreatePlaneta(0.35, 0, true, 0.03, 9 + raioDoSol, "images/venus.tga", 2);
+	planetas[3].CreatePlaneta(0.37, 0, true, 0.02, 12.92 + raioDoSol, "images/earth.tga", 3);
+
+	planetas[3].AddMoon(0.099, true, 0.1, 1.37, 3);
+
+	planetas[4].CreatePlaneta(0.2, 0, true, 0.01, 19 + raioDoSol, "images/mars.tga", 4);
+	planetas[4].AddMoon(0.09, true, 0.2, 0.7, 4);
+	planetas[4].AddMoon(0.06, true, 0.15, 1.2, 4);
+
+	planetas[5].CreatePlaneta(2, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
+	planetas[6].CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
+	planetas[7].CreatePlaneta(0.78, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
+	planetas[8].CreatePlaneta(0.7, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
+
+}
+
 void init(void)
 {
 	// Define técnica de shading: GL_FLAT, GL_SMOOTH
@@ -50,6 +87,7 @@ void init(void)
 	
 	// Activa o teste de profundidade
 	glEnable(GL_DEPTH_TEST);
+	CreatePlanetas();
 
 	
 }
@@ -134,42 +172,7 @@ void applymaterial(int type)
 	}
 }
 
-void CreatePlanetas()
-{
-	
-	//sol, mercurio, venus, terra, marte, jupiter, saturno, uranus, neptuno;
-	//distancias à escala
-	//distancia original de mercurio ao sol corresponde a 5 unidades
-	//todas a distancias são calculadas com base na anterior
-	//raio original de mercurio corresponde a 0.5 unidades
-	//todos os outros raios são calculados atravez deste ultimo 
-	//raios de Jupiter Saturno Urano e Neptuno são divididos por 2 !!!
 
-
-	//raio dos plantas calculado em relação ao raio do sol
-	// 6957000km corresponde a 4 unidades
-	//com esta razão é calculado o raio de mercurio venos terra marte e lua e o resultado é multiplicado por 100
-	//jupiter saturno urano e neptuno seguem a mesma logica mas o resultado é multiplicad por 50
-
-
-	planetas[0].CreatePlaneta(raioDoSol, 3, true, 0, 0, "images/sun.tga", 0);
-	
-	planetas[1].CreatePlaneta(0.14, 0, true, 0.05, 5 + raioDoSol, "images/mercury.tga", 1);
-	planetas[2].CreatePlaneta(0.35, 0, true, 0.03, 9 + raioDoSol, "images/venus.tga", 2);
-	planetas[3].CreatePlaneta(0.37, 0, true, 0.02, 12.92 + raioDoSol, "images/earth.tga", 3);
-
-	planetas[3].AddMoon(0.099, true, 0.1, 1.37, 3);
-
-	planetas[4].CreatePlaneta(0.2, 0, true, 0.01, 19 + raioDoSol, "images/mars.tga", 4);
-	planetas[4].AddMoon(0.09, true, 0.2, 0.7, 4);
-	planetas[4].AddMoon(0.06, true, 0.15, 1.2, 4);
-
-	planetas[5].CreatePlaneta(2, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
-	planetas[6].CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
-	planetas[7].CreatePlaneta(0.78, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
-	planetas[8].CreatePlaneta(0.7, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
-	
-}
 
 void DrawPlanetas()
 {
@@ -330,6 +333,7 @@ void renderSubWindow()
 
 	glutSwapBuffers();
 	
+	glFlush();
 }
 
 void renderAll()
@@ -362,7 +366,7 @@ int main(int argc, char** argv)
 	initLights();
 	skybox.CreateSkybox();
 	freeCamera.InitCamera();
-	CreatePlanetas();
+	
 	// Registar funções de callback
 	glutReshapeFunc(reshape);
 	glutIdleFunc(renderAll);
@@ -377,7 +381,7 @@ int main(int argc, char** argv)
 	subWindow = glutCreateSubWindow(window, 25, 25, subWindow_width, subWindow_height);
 
 	glutDisplayFunc(renderSubWindow);
-
+	init();
 
 	
 	
