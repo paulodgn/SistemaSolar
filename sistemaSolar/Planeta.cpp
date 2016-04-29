@@ -205,10 +205,10 @@ void Planeta::Update()
 {
 	
 	//rotacao planeta
-	spin = spin + 0.1;
+	spin = spin + 0.1* velocidadeOrbita;
 	if (spin > 360.0)
 	{
-		spin = spin - 360.0;
+		spin = spin - 360.0 ;
 	}
 	
 }

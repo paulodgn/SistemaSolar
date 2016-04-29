@@ -76,11 +76,11 @@ void Lua::Draw(float planetaX, float planetaY, float planetaZ)
 	if (hasOrbit)
 	{
 
-		x = planetaX + distanceToPlanet * cos(angle*velocidadeOrbita);
+		x = planetaX + distanceToPlanet * cos(angle);
 		y = 0;
-		z = planetaZ + distanceToPlanet *  sin(angle*velocidadeOrbita);
+		z = planetaZ + distanceToPlanet *  sin(angle);
 		glTranslatef(x, 0, z);
-		angle += 0.1;
+		angle += 0.1*velocidadeOrbita;
 
 
 

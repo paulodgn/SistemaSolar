@@ -173,7 +173,7 @@ void Camera::Update()
 		
 		gluLookAt(x, y, z, 0, 0, 0, 0, 1, 0);
 		
-		angle += 0.1 * velocidadeOrbita;
+		angle += 0.1;
 	}
 	
 	
