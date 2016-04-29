@@ -13,7 +13,7 @@
 #include "Skybox.h"
 #include <list>
 
-
+#define numberOfPlanets 9
 
 
 // Protótipos de funções
@@ -29,6 +29,8 @@ int width, height;
 float solX=0, solY=0, solZ=0;
 float raioDoSol;
 
+
+
 Planeta sol,mercurio,venus, terra, marte, jupiter, saturno, uranus, neptuno;
 std::list<Planeta> listaPlanetas;
 Camera freeCamera;
@@ -38,7 +40,8 @@ Skybox skybox;
 GLuint window, subWindow;
 GLuint subWindow_width, subWindow_height;
 
-Lua luas[50]; 
+//Lua luas[50];
+Planeta planetas[numberOfPlanets];
 
 void init(void)
 {
@@ -148,31 +151,44 @@ void CreatePlanetas()
 	//com esta razão é calculado o raio de mercurio venos terra marte e lua e o resultado é multiplicado por 100
 	//jupiter saturno urano e neptuno seguem a mesma logica mas o resultado é multiplicad por 50
 
+
+	planetas[0].CreatePlaneta(raioDoSol, 3, true, 0, 0, "images/sun.tga", 0);
 	
-	sol.CreatePlaneta(raioDoSol, 3, true, 0, 0, "images/sun.tga", 0);
-	
-	mercurio.CreatePlaneta(0.14, 0, true, 0.05, 5 + raioDoSol, "images/mercury.tga", 1);
-	venus.CreatePlaneta(0.35, 0, true, 0.03, 9 + raioDoSol, "images/venus.tga", 2);
-	terra.CreatePlaneta(0.37, 0, true, 0.02, 12.92 + raioDoSol, "images/earth.tga", 3);
+	planetas[1].CreatePlaneta(0.14, 0, true, 0.05, 5 + raioDoSol, "images/mercury.tga", 1);
+	planetas[2].CreatePlaneta(0.35, 0, true, 0.03, 9 + raioDoSol, "images/venus.tga", 2);
+	planetas[3].CreatePlaneta(0.37, 0, true, 0.02, 12.92 + raioDoSol, "images/earth.tga", 3);
 
-	terra.AddMoon(0.099, true, 0.1, 1.37,3);
+	planetas[3].AddMoon(0.099, true, 0.1, 1.37, 3);
 
-	marte.CreatePlaneta(0.2, 0, true, 0.01, 19 + raioDoSol, "images/mars.tga", 4);
-	marte.AddMoon(0.09, true, 0.2, 0.7,4);
-	marte.AddMoon(0.06, true, 0.15, 1.2, 4);
+	planetas[4].CreatePlaneta(0.2, 0, true, 0.01, 19 + raioDoSol, "images/mars.tga", 4);
+	planetas[4].AddMoon(0.09, true, 0.2, 0.7, 4);
+	planetas[4].AddMoon(0.06, true, 0.15, 1.2, 4);
 
-	jupiter.CreatePlaneta(2, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
-	saturno.CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
-	uranus.CreatePlaneta(0.78, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
-	neptuno.CreatePlaneta(0.7, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
+	planetas[5].CreatePlaneta(2, 0, true, 0.008, 33.6 + raioDoSol, "images/jupiter.tga", 5);
+	planetas[6].CreatePlaneta(1.67, 0, true, 0.005, 61.71 + raioDoSol, "images/saturn.tga", 6);
+	planetas[7].CreatePlaneta(0.78, 0, true, 0.002, 123.945 + raioDoSol, "images/uranus.tga", 7);
+	planetas[8].CreatePlaneta(0.7, 0, true, 0.001, 194.455 + raioDoSol, "images/neptune.tga", 8);
 	
 }
 
 void DrawPlanetas()
 {
-	applymaterial(3);
-	sol.Draw();
-	applymaterial(0);
+	for (int i = 0; i < numberOfPlanets ; i++)
+	{
+		if (i==0)
+		{
+			applymaterial(3);
+
+		}
+		else
+		{
+			applymaterial(0);
+		}
+		planetas[i].Draw();
+	}
+	
+	/*sol.Draw();
+	
 	mercurio.Draw();
 	venus.Draw();
 	terra.Draw();
@@ -185,14 +201,18 @@ void DrawPlanetas()
 	uranus.Draw();
 	neptuno.Draw();
 	
-	
+	*/
 	
 }
 
 
 void UpdatePlanetas()
 {
-	sol.Update();
+	for (int i = 0; i < numberOfPlanets; i++)
+	{
+		planetas[i].Update();
+	}
+	/*sol.Update();
 	mercurio.Update();
 	venus.Update();
 	terra.Update();
@@ -201,7 +221,7 @@ void UpdatePlanetas()
 	jupiter.Update();
 	saturno.Update();
 	uranus.Update();
-	neptuno.Update();
+	neptuno.Update();*/
 }
 
 
@@ -236,7 +256,12 @@ void display(void)
 void Input(unsigned char key, int x, int y)
 {
 	freeCamera.Input(key);
-	sol.Input(key);
+
+	for (int i = 0; i < numberOfPlanets; i++)
+	{
+		planetas[i].Input(key);
+	}
+	/*sol.Input(key);
 	mercurio.Input(key);
 	venus.Input(key);
 	terra.Input(key);
@@ -245,7 +270,7 @@ void Input(unsigned char key, int x, int y)
 	jupiter.Input(key);
 	saturno.Input(key);
 	uranus.Input(key);
-	neptuno.Input(key);
+	neptuno.Input(key);*/
 	
 	//janelas
 	if ((key == 'n') || (key == 'N')){
@@ -278,6 +303,8 @@ void mouseButton(int button, int state, int x, int y)
 
 void renderSubWindow()
 {
+
+
 	glutSetWindow(subWindow);
 	
 
@@ -292,9 +319,10 @@ void renderSubWindow()
 	//desenha teapot na posicao da camara
 	glPushMatrix();
 	glTranslatef(freeCamera.x, freeCamera.y, freeCamera.z);
+	
 	glutWireTeapot(0.5);
 	glPopMatrix();
-
+	
 	DrawPlanetas();
 	UpdatePlanetas();
 	
